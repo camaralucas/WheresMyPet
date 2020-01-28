@@ -6,7 +6,7 @@
 			"dependsOn": [
 				{
 					"category": "auth",
-					"resourceName": "wheresmypetae22d0a0ae22d0a0",
+					"resourceName": "wheresmypet80db1f9680db1f96",
 					"attributes": [
 						"UserPoolId",
 						"AppClientIDWeb",
@@ -16,27 +16,10 @@
 				}
 			]
 		},
-		"wheresmypetae22d0a0ae22d0a0": {
+		"wheresmypet80db1f9680db1f96": {
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation",
 			"dependsOn": []
-		}
-	},
-	"api": {
-		"wheresmypet": {
-			"service": "AppSync",
-			"providerPlugin": "awscloudformation",
-			"output": {
-				"authConfig": {
-					"additionalAuthenticationProviders": [],
-					"defaultAuthentication": {
-						"authenticationType": "AMAZON_COGNITO_USER_POOLS",
-						"userPoolConfig": {
-							"userPoolId": "authwheresmypetae22d0a0ae22d0a0"
-						}
-					}
-				}
-			}
 		}
 	}
 }
