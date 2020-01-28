@@ -1,21 +1,21 @@
 {
     "AWSTemplateFormatVersion": "2010-09-09",
     "Parameters": {
-        "authwheresmypetae22d0a0ae22d0a0UserPoolId": {
+        "authwheresmypet80db1f9680db1f96UserPoolId": {
             "Type": "String",
-            "Default": "authwheresmypetae22d0a0ae22d0a0UserPoolId"
+            "Default": "authwheresmypet80db1f9680db1f96UserPoolId"
         },
-        "authwheresmypetae22d0a0ae22d0a0IdentityPoolId": {
+        "authwheresmypet80db1f9680db1f96IdentityPoolId": {
             "Type": "String",
-            "Default": "authwheresmypetae22d0a0ae22d0a0IdentityPoolId"
+            "Default": "authwheresmypet80db1f9680db1f96IdentityPoolId"
         },
-        "authwheresmypetae22d0a0ae22d0a0AppClientID": {
+        "authwheresmypet80db1f9680db1f96AppClientID": {
             "Type": "String",
-            "Default": "authwheresmypetae22d0a0ae22d0a0AppClientID"
+            "Default": "authwheresmypet80db1f9680db1f96AppClientID"
         },
-        "authwheresmypetae22d0a0ae22d0a0AppClientIDWeb": {
+        "authwheresmypet80db1f9680db1f96AppClientIDWeb": {
             "Type": "String",
-            "Default": "authwheresmypetae22d0a0ae22d0a0AppClientIDWeb"
+            "Default": "authwheresmypet80db1f9680db1f96AppClientIDWeb"
         },
         "AuthRoleArn": {
             "Type": "String"
@@ -39,23 +39,23 @@
     },
     "Resources": {
     
-        "UsersGroup": {
+        "RegularGroup": {
           "Type" : "AWS::Cognito::UserPoolGroup",
           "Properties" : {
-              "GroupName" : "Users",
+              "GroupName" : "Regular",
               "Precedence" : 1,
               "RoleArn" : {
                 "Fn::GetAtt": [
-                    "UsersGroupRole",
+                    "RegularGroupRole",
                     "Arn"
                 ]
               },
               "UserPoolId" : {
-                "Ref": "authwheresmypetae22d0a0ae22d0a0UserPoolId"
+                "Ref": "authwheresmypet80db1f9680db1f96UserPoolId"
               } 
             }
         },
-        "UsersGroupRole": {
+        "RegularGroupRole": {
             "Type": "AWS::IAM::Role",
             "Properties": {
                 "RoleName":{
@@ -63,9 +63,9 @@
                         "",
                         [
                           {
-                            "Ref": "authwheresmypetae22d0a0ae22d0a0UserPoolId"
+                            "Ref": "authwheresmypet80db1f9680db1f96UserPoolId"
                           },
-                          "-UsersGroupRole"
+                          "-RegularGroupRole"
                         ]
                     ]
                 },
@@ -100,7 +100,7 @@
                                 "",
                                 [
                                   
-                                  "wheresmypetae22d0a0ae22d0a0",
+                                  "wheresmypet80db1f9680db1f96",
                                   "-ExecutionRole-",
                                   {
                                     "Ref": "env"
@@ -259,16 +259,16 @@
                     "Ref": "UnauthRoleArn"
                 },
                 "identityPoolId": {
-                    "Ref": "authwheresmypetae22d0a0ae22d0a0IdentityPoolId"
+                    "Ref": "authwheresmypet80db1f9680db1f96IdentityPoolId"
                 },
                 "userPoolId": {
-                    "Ref": "authwheresmypetae22d0a0ae22d0a0UserPoolId"
+                    "Ref": "authwheresmypet80db1f9680db1f96UserPoolId"
                 },
                 "appClientIDWeb": {
-                    "Ref": "authwheresmypetae22d0a0ae22d0a0AppClientIDWeb"
+                    "Ref": "authwheresmypet80db1f9680db1f96AppClientIDWeb"
                 },
                 "appClientID": {
-                    "Ref": "authwheresmypetae22d0a0ae22d0a0AppClientID"
+                    "Ref": "authwheresmypet80db1f9680db1f96AppClientID"
                 },
                 "region": {
                     "Ref": "AWS::Region"
@@ -282,10 +282,10 @@
     },
     "Outputs": {
       
-        "UsersGroupRole": {
+        "RegularGroupRole": {
             "Value": {
                 "Fn::GetAtt": [
-                    "UsersGroupRole",
+                    "RegularGroupRole",
                     "Arn"
                 ]
             }
