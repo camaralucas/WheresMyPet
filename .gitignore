@@ -117,3 +117,13 @@ awsconfiguration.json
 amplifyconfiguration.json
 amplify-gradle-config.json
 amplifyxc.config
+
+# Gradle
+/build/
+
+# Android
+.idea
+.gradle
+local.properties
+*.iml
+/android/
