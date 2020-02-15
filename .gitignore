@@ -38,7 +38,6 @@ bower_components
 build/Release
 
 # Dependency directories
-node_modules/
 jspm_packages/
 
 # TypeScript v1 declaration files
@@ -111,9 +110,23 @@ amplify/backend/amplify-meta.json
 amplify/backend/awscloudformation
 build/
 dist/
-node_modules/
 aws-exports.js
 awsconfiguration.json
 amplifyconfiguration.json
 amplify-gradle-config.json
 amplifyxc.config
+
+# Gradle
+/build/
+
+# Android
+.idea
+.gradle
+local.properties
+*.iml
+/android/
+
+# Node
+node_modules/
+.nvm
+package-lock.json
