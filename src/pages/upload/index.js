@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 
-class UploadPhotoScreen extends React.Component {
+class UploadPhotoPage extends React.Component {
   render() {
     return (
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
@@ -11,4 +11,4 @@ class UploadPhotoScreen extends React.Component {
   }
 }
 
-export default UploadPhotoScreen;
+export default UploadPhotoPage;

@@ -1,20 +1,20 @@
 import {createStackNavigator} from 'react-navigation-stack';
 
-// Screens
-import HomeScreen from './screens/home';
-import RegisterAnimalScreen from './screens/register/animal';
-import UploadPhotoScreen from './screens/upload';
+// Pages
+import HomePage from './pages/home';
+import RegisterAnimalPage from './pages/register/animal';
+import UploadPhotoPage from './pages/upload';
 
 const AppNavigator = createStackNavigator(
   {
     Home: {
-      screen: HomeScreen,
+      screen: HomePage,
     },
     RegisterAnimal: {
-      screen: RegisterAnimalScreen,
+      screen: RegisterAnimalPage,
     },
     UploadPhoto: {
-      screen: UploadPhotoScreen,
+      screen: UploadPhotoPage,
     },
   },
   {
