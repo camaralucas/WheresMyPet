@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import AppNavigator from './navigator';
 
-
 // Amplify
 import Amplify from 'aws-amplify';
 import awsconfig from '../aws-exports';
