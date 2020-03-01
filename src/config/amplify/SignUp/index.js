@@ -1,4 +1,4 @@
-const SignUpConfig = {
+const amplifySignUpConfig = {
   hideAllDefaults: true,
   signUpFields: [
     {
@@ -44,4 +44,4 @@ const SignUpConfig = {
   ],
 };
 
-export default SignUpConfig;
+export default amplifySignUpConfig;
