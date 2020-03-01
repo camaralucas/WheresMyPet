@@ -1,3 +1,4 @@
+import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 
 // Pages
@@ -22,4 +23,4 @@ const AppNavigator = createStackNavigator(
   },
 );
 
-export default AppNavigator;
+export default createAppContainer(AppNavigator);

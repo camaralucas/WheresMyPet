@@ -1,14 +1,41 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Image, Button} from 'react-native';
+import ImagePicker from 'react-native-image-picker';
 
-class UploadPhotoPage extends React.Component {
+
+export default class UploadPhoto extends React.Component {
+
+  state = {
+    avatarSource: null
+  }
+
+  selectImage = async () => {
+    ImagePicker.showImagePicker({ noData:true, mediaType:'photo' }, (response) => {
+      console.log('Response = ', response);
+    
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+    
+        this.setState({
+          avatarSource: response.uri,
+        });
+      }
+    });
+  }
+
   render() {
     return (
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-        <Text>Upload two photos!</Text>
+        {
+          this.state.avatarSource && <Image source={{ uri:this.state.avatarSource }} style={{ width: '80%', height: 200, resizeMode: 'contain'}} />
+        }
+        <Button title="Selecione uma foto" onPress={ this.selectImage }></Button>
       </View>
     );
   }
 }
-
-export default UploadPhotoPage;
