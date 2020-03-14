@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "wheresmypetc9444c6a_identitypool_c9444c6a",
+    "identityPoolName": "wheresmypet2985e23f_identitypool_2985e23f",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "wheresc9444c6a",
-    "userPoolName": "wheresmypetc9444c6a_userpool_c9444c6a",
+    "resourceNameTruncated": "wheres2985e23f",
+    "userPoolName": "wheresmypet2985e23f_userpool_2985e23f",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -31,11 +31,11 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "wheresc9444c6a_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "wheres2985e23f_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
     "useDefault": "manual",
     "authSelections": "identityPoolAndUserPool",
-    "resourceName": "wheresmypetc9444c6ac9444c6a",
+    "resourceName": "wheresmypet2985e23f2985e23f",
     "thirdPartyAuth": false,
     "usernameAttributes": [
         "email"

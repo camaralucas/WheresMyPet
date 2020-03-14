@@ -6,7 +6,7 @@
 			"dependsOn": [
 				{
 					"category": "auth",
-					"resourceName": "wheresmypetc9444c6ac9444c6a",
+					"resourceName": "wheresmypet2985e23f2985e23f",
 					"attributes": [
 						"UserPoolId",
 						"AppClientIDWeb",
@@ -16,7 +16,7 @@
 				}
 			]
 		},
-		"wheresmypetc9444c6ac9444c6a": {
+		"wheresmypet2985e23f2985e23f": {
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation",
 			"dependsOn": []

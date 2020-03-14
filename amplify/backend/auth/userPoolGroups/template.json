@@ -1,21 +1,21 @@
 {
     "AWSTemplateFormatVersion": "2010-09-09",
     "Parameters": {
-        "authwheresmypetc9444c6ac9444c6aUserPoolId": {
+        "authwheresmypet2985e23f2985e23fUserPoolId": {
             "Type": "String",
-            "Default": "authwheresmypetc9444c6ac9444c6aUserPoolId"
+            "Default": "authwheresmypet2985e23f2985e23fUserPoolId"
         },
-        "authwheresmypetc9444c6ac9444c6aIdentityPoolId": {
+        "authwheresmypet2985e23f2985e23fIdentityPoolId": {
             "Type": "String",
-            "Default": "authwheresmypetc9444c6ac9444c6aIdentityPoolId"
+            "Default": "authwheresmypet2985e23f2985e23fIdentityPoolId"
         },
-        "authwheresmypetc9444c6ac9444c6aAppClientID": {
+        "authwheresmypet2985e23f2985e23fAppClientID": {
             "Type": "String",
-            "Default": "authwheresmypetc9444c6ac9444c6aAppClientID"
+            "Default": "authwheresmypet2985e23f2985e23fAppClientID"
         },
-        "authwheresmypetc9444c6ac9444c6aAppClientIDWeb": {
+        "authwheresmypet2985e23f2985e23fAppClientIDWeb": {
             "Type": "String",
-            "Default": "authwheresmypetc9444c6ac9444c6aAppClientIDWeb"
+            "Default": "authwheresmypet2985e23f2985e23fAppClientIDWeb"
         },
         "AuthRoleArn": {
             "Type": "String"
@@ -51,7 +51,7 @@
                 ]
               },
               "UserPoolId" : {
-                "Ref": "authwheresmypetc9444c6ac9444c6aUserPoolId"
+                "Ref": "authwheresmypet2985e23f2985e23fUserPoolId"
               } 
             }
         },
@@ -63,7 +63,7 @@
                         "",
                         [
                           {
-                            "Ref": "authwheresmypetc9444c6ac9444c6aUserPoolId"
+                            "Ref": "authwheresmypet2985e23f2985e23fUserPoolId"
                           },
                           "-UsersGroupRole"
                         ]
@@ -100,7 +100,7 @@
                                 "",
                                 [
                                   
-                                  "wheresmypetc9444c6ac9444c6a",
+                                  "wheresmypet2985e23f2985e23f",
                                   "-ExecutionRole-",
                                   {
                                     "Ref": "env"
@@ -259,16 +259,16 @@
                     "Ref": "UnauthRoleArn"
                 },
                 "identityPoolId": {
-                    "Ref": "authwheresmypetc9444c6ac9444c6aIdentityPoolId"
+                    "Ref": "authwheresmypet2985e23f2985e23fIdentityPoolId"
                 },
                 "userPoolId": {
-                    "Ref": "authwheresmypetc9444c6ac9444c6aUserPoolId"
+                    "Ref": "authwheresmypet2985e23f2985e23fUserPoolId"
                 },
                 "appClientIDWeb": {
-                    "Ref": "authwheresmypetc9444c6ac9444c6aAppClientIDWeb"
+                    "Ref": "authwheresmypet2985e23f2985e23fAppClientIDWeb"
                 },
                 "appClientID": {
-                    "Ref": "authwheresmypetc9444c6ac9444c6aAppClientID"
+                    "Ref": "authwheresmypet2985e23f2985e23fAppClientID"
                 },
                 "region": {
                     "Ref": "AWS::Region"
