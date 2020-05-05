@@ -59,6 +59,9 @@ buck-out/
 # CocoaPods
 /ios/Pods/
 
+#dev
+notes.txt
+
 #amplify
 amplify/\#current-cloud-backend
 amplify/.config/local-*

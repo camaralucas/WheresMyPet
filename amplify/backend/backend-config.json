@@ -1,4 +1,11 @@
 {
+	"function": {
+		"wheresmypet81d06a8981d06a89PostConfirmation": {
+			"service": "Lambda",
+			"providerPlugin": "awscloudformation",
+			"build": true
+		}
+	},
 	"auth": {
 		"userPoolGroups": {
 			"service": "Cognito-UserPool-Groups",
@@ -6,7 +13,7 @@
 			"dependsOn": [
 				{
 					"category": "auth",
-					"resourceName": "wheresmypet2985e23f2985e23f",
+					"resourceName": "wheresmypet81d06a8981d06a89",
 					"attributes": [
 						"UserPoolId",
 						"AppClientIDWeb",
@@ -16,10 +23,37 @@
 				}
 			]
 		},
-		"wheresmypet2985e23f2985e23f": {
+		"wheresmypet81d06a8981d06a89": {
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation",
-			"dependsOn": []
+			"dependsOn": [
+				{
+					"category": "function",
+					"resourceName": "wheresmypet81d06a8981d06a89PostConfirmation",
+					"triggerProvider": "Cognito",
+					"attributes": [
+						"Arn",
+						"Name"
+					]
+				}
+			]
+		}
+	},
+	"api": {
+		"wheresmypet": {
+			"service": "AppSync",
+			"providerPlugin": "awscloudformation",
+			"output": {
+				"authConfig": {
+					"additionalAuthenticationProviders": [],
+					"defaultAuthentication": {
+						"authenticationType": "AMAZON_COGNITO_USER_POOLS",
+						"userPoolConfig": {
+							"userPoolId": "authwheresmypet81d06a8981d06a89"
+						}
+					}
+				}
+			}
 		}
 	}
 }

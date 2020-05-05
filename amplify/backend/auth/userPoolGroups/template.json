@@ -1,21 +1,21 @@
 {
     "AWSTemplateFormatVersion": "2010-09-09",
     "Parameters": {
-        "authwheresmypet2985e23f2985e23fUserPoolId": {
+        "authwheresmypet81d06a8981d06a89UserPoolId": {
             "Type": "String",
-            "Default": "authwheresmypet2985e23f2985e23fUserPoolId"
+            "Default": "authwheresmypet81d06a8981d06a89UserPoolId"
         },
-        "authwheresmypet2985e23f2985e23fIdentityPoolId": {
+        "authwheresmypet81d06a8981d06a89IdentityPoolId": {
             "Type": "String",
-            "Default": "authwheresmypet2985e23f2985e23fIdentityPoolId"
+            "Default": "authwheresmypet81d06a8981d06a89IdentityPoolId"
         },
-        "authwheresmypet2985e23f2985e23fAppClientID": {
+        "authwheresmypet81d06a8981d06a89AppClientID": {
             "Type": "String",
-            "Default": "authwheresmypet2985e23f2985e23fAppClientID"
+            "Default": "authwheresmypet81d06a8981d06a89AppClientID"
         },
-        "authwheresmypet2985e23f2985e23fAppClientIDWeb": {
+        "authwheresmypet81d06a8981d06a89AppClientIDWeb": {
             "Type": "String",
-            "Default": "authwheresmypet2985e23f2985e23fAppClientIDWeb"
+            "Default": "authwheresmypet81d06a8981d06a89AppClientIDWeb"
         },
         "AuthRoleArn": {
             "Type": "String"
@@ -39,23 +39,23 @@
     },
     "Resources": {
     
-        "UsersGroup": {
+        "usersGroup": {
           "Type" : "AWS::Cognito::UserPoolGroup",
           "Properties" : {
-              "GroupName" : "Users",
+              "GroupName" : "users",
               "Precedence" : 1,
               "RoleArn" : {
                 "Fn::GetAtt": [
-                    "UsersGroupRole",
+                    "usersGroupRole",
                     "Arn"
                 ]
               },
               "UserPoolId" : {
-                "Ref": "authwheresmypet2985e23f2985e23fUserPoolId"
+                "Ref": "authwheresmypet81d06a8981d06a89UserPoolId"
               } 
             }
         },
-        "UsersGroupRole": {
+        "usersGroupRole": {
             "Type": "AWS::IAM::Role",
             "Properties": {
                 "RoleName":{
@@ -63,9 +63,9 @@
                         "",
                         [
                           {
-                            "Ref": "authwheresmypet2985e23f2985e23fUserPoolId"
+                            "Ref": "authwheresmypet81d06a8981d06a89UserPoolId"
                           },
-                          "-UsersGroupRole"
+                          "-usersGroupRole"
                         ]
                     ]
                 },
@@ -78,7 +78,11 @@
                             "Principal": {
                                 "Federated": "cognito-identity.amazonaws.com"
                             },
-                            "Action": "sts:AssumeRoleWithWebIdentity"
+                            "Action": "sts:AssumeRoleWithWebIdentity",
+                            "Condition": {
+                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authwheresmypet81d06a8981d06a89IdentityPoolId"}},
+                              "ForAnyValue:StringLike": {"cognito-identity.amazonaws.com:amr": "authenticated"}
+                            }
                         }
                     ]
                 }
@@ -100,7 +104,7 @@
                                 "",
                                 [
                                   
-                                  "wheresmypet2985e23f2985e23f",
+                                  "wheresmypet81d06a8981d06a89",
                                   "-ExecutionRole-",
                                   {
                                     "Ref": "env"
@@ -259,16 +263,16 @@
                     "Ref": "UnauthRoleArn"
                 },
                 "identityPoolId": {
-                    "Ref": "authwheresmypet2985e23f2985e23fIdentityPoolId"
+                    "Ref": "authwheresmypet81d06a8981d06a89IdentityPoolId"
                 },
                 "userPoolId": {
-                    "Ref": "authwheresmypet2985e23f2985e23fUserPoolId"
+                    "Ref": "authwheresmypet81d06a8981d06a89UserPoolId"
                 },
                 "appClientIDWeb": {
-                    "Ref": "authwheresmypet2985e23f2985e23fAppClientIDWeb"
+                    "Ref": "authwheresmypet81d06a8981d06a89AppClientIDWeb"
                 },
                 "appClientID": {
-                    "Ref": "authwheresmypet2985e23f2985e23fAppClientID"
+                    "Ref": "authwheresmypet81d06a8981d06a89AppClientID"
                 },
                 "region": {
                     "Ref": "AWS::Region"
@@ -282,10 +286,10 @@
     },
     "Outputs": {
       
-        "UsersGroupRole": {
+        "usersGroupRole": {
             "Value": {
                 "Fn::GetAtt": [
-                    "UsersGroupRole",
+                    "usersGroupRole",
                     "Arn"
                 ]
             }
