@@ -3,24 +3,25 @@ import {ThemeProvider, Button, Divider} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {View} from 'react-native';
 import globalTheme from '../theme/globalTheme';
+import CustomButton from '../components/buttons/CustomButton';
 
 export default function RegisterAnimalIndex({route, navigation}) {
   console.log('navigation → ', navigation);
   console.log('route → ', route);
 
   const [animal, setAnimal] = useState({
-    address: null,
-    breed: null,
-    eye_right: null,
-    eye_left: null,
+    address: 'Rua Rodrigo Otavio, 214',
+    breed: 1,
+    eye_right: '#ffff00',
+    eye_left: '#0000ff',
     image: {uri: null, key: null, signedURL: null},
-    name: null,
-    number: null,
-    observation: null,
-    primary_fur: null,
-    secundary_fur: null,
-    specie: null,
-    text: null,
+    name: 'Fininho',
+    number: '172614',
+    observation: 'Possui heterocromia',
+    primary_fur: '#ffffff',
+    secundary_fur: '#ffffff',
+    specie: 'ND',
+    text: 'Gato #1',
   });
 
   console.log('SPECIE navigation → ', navigation);
@@ -41,10 +42,10 @@ export default function RegisterAnimalIndex({route, navigation}) {
         />
 
         {animal.specie && (
-          <Button
+          <CustomButton
             title="PRÓXIMO >>"
             onPress={() =>
-              navigation.navigate('RegisterAnimalFormScreen', {animal})
+              navigation.navigate('RegisterAnimalImageSelectScreen', {animal})
             }
           />
         )}

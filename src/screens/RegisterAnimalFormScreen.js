@@ -5,31 +5,39 @@ import {
   ScrollView,
   TouchableWithoutFeedback,
   Keyboard,
+  View,
+  Text,
 } from 'react-native';
 import {ThemeProvider, Button} from 'react-native-elements';
 import {Formik} from 'formik';
 import FormInput from '../components/FormInput';
 import animalFormSchema from '../components/animalFormSchema';
+import ColorPicker from '../components/ColorPicker';
+import Checkbox from '../components/Checkbox';
+import CustomButton from '../components/buttons/CustomButton';
 
 export default function RegisterAnimalFormScreen({route, navigation}) {
   console.log('FORM navigation → ', navigation);
   console.log('route → ', route);
 
-  const [checkedEye, setCheckedEye] = useState(false);
-  const [checkedFur, setCheckedFur] = useState(false);
+  const animal = route.params.animal;
+
+  const [checkedEye, setCheckedEye] = useState(true);
+  const [checkedFur, setCheckedFur] = useState(true);
 
   return (
     <SafeAreaView style={globalTheme.container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <ScrollView>
           <Formik
-            initialValues={{...route.params.animal}}
+            initialValues={{...animal}}
             validationSchema={animalFormSchema({checkedEye, checkedFur})}
             onSubmit={values => {
               navigation.setParams({
                 animal: values,
               });
               console.log('VALUES → ', values);
+              navigation.navigate('RegisterAnimalImageSelectScreen', {animal});
             }}>
             {({values, handleChange, handleSubmit, errors, touched}) => (
               <ThemeProvider theme={globalTheme}>
@@ -62,54 +70,62 @@ export default function RegisterAnimalFormScreen({route, navigation}) {
                   errorMessage={errors.number}
                   touched={touched.number}
                 />
-                <FormInput
-                  header="Cor do olho"
-                  titleCheckbox={'Selecione se o animal possui heterocromia'}
-                  onPressCheckbox={() => setCheckedEye(!checkedEye)}
-                  checkedCheckbox={checkedEye}
-                  title={!checkedEye ? 'Selecione:' : 'Olho esquerdo'}
-                  onChangeText={handleChange('eye_left')}
-                  value={values.eye_left}
-                  divider={false}
-                  errorMessage={errors.eye_left}
-                  touched={touched.eye_left}
-                />
-                {checkedEye && (
-                  <FormInput
-                    title={'Olho direito:'}
-                    onChangeText={handleChange('eye_right')}
-                    value={values.eye_right}
-                    errorMessage={errors.eye_right}
-                    touched={touched.eye_right}
+                <Text style={globalTheme.headerText}>Cor dos olhos</Text>
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}>
+                  <ColorPicker
+                    title={
+                      !checkedEye ? 'Cor dos olhos:' : 'Cor do olho esquerdo'
+                    }
+                    onValueChange={handleChange('eye_left')}
+                    selectedValue={values.eye_left}
                   />
-                )}
-                <FormInput
-                  header={'Cor do pelo'}
-                  titleCheckbox={'Selecione se o animal possui duas cores'}
-                  onPressCheckbox={() => setCheckedFur(!checkedFur)}
-                  checkedCheckbox={checkedFur}
-                  title={'Predominante:'}
-                  onChangeText={handleChange('primary_fur')}
-                  value={values.primary_fur}
-                  divider={false}
-                  errorMessage={errors.primary_fur}
-                  touched={touched.primary_fur}
+                  {checkedEye && (
+                    <ColorPicker
+                      title={'Cor do olho direito:'}
+                      onValueChange={handleChange('eye_right')}
+                      selectedValue={values.eye_right}
+                    />
+                  )}
+                </View>
+                <Checkbox
+                  title={'Selecione se o animal possui heterocromia'}
+                  onPress={() => setCheckedEye(!checkedEye)}
+                  checked={checkedEye}
                 />
-                {checkedFur && (
-                  <FormInput
-                    title={'Secundária:'}
-                    onChangeText={handleChange('secundary_fur')}
-                    value={values.secundary_fur}
-                    errorMessage={errors.secundary_fur}
-                    touched={touched.secundary_fur}
-                  />
-                )}
 
-                <Button
-                  title="PRÓXIMO >>"
-                  color="maroon"
-                  onPress={handleSubmit}
+                <Text style={globalTheme.headerText}>Cor do pelo</Text>
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}>
+                  <ColorPicker
+                    title={'Predominante:'}
+                    onValueChange={handleChange('primary_fur')}
+                    selectedValue={values.primary_fur}
+                  />
+                  {checkedFur && (
+                    <ColorPicker
+                      title={'Secundária:'}
+                      onValueChange={handleChange('secundary_fur')}
+                      selectedValue={values.secundary_fur}
+                    />
+                  )}
+                </View>
+                <Checkbox
+                  title={'Selecione se o animal possui duas cores'}
+                  onPress={() => setCheckedFur(!checkedFur)}
+                  checked={checkedFur}
                 />
+                <CustomButton title="PRÓXIMO >>" onPress={handleSubmit} />
               </ThemeProvider>
             )}
           </Formik>

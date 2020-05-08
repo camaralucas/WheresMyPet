@@ -1,9 +1,13 @@
 import React from 'react';
-import {Alert} from 'react-native';
-import {ThemeProvider, Button} from 'react-native-elements';
+import {Alert, View, Button} from 'react-native';
 import {Storage} from 'aws-amplify';
+import globalTheme from '../../theme/globalTheme';
 
-export default function UploadImageButton({route, navigation}) {
+export default function UploadImageButton({
+  route,
+  navigation,
+  disable = false,
+}) {
   const {animal} = route.params;
 
   async function uploadImageHandle() {
@@ -16,7 +20,7 @@ export default function UploadImageButton({route, navigation}) {
         navigation.setParams((animal.image.key = imageInfo.key));
         setSignedURL;
         Alert.alert('SUCESSO', 'Imagem enviada com sucesso!');
-        navigation.navigate('HomePage', {animal});
+        navigation.navigate('RegisterAnimalFormScreen', {animal});
       } else {
         Alert.alert('ERRO', 'Foto não selecionada.');
       }
@@ -33,8 +37,13 @@ export default function UploadImageButton({route, navigation}) {
   }
 
   return (
-    <ThemeProvider>
-      <Button title="ENVIAR FOTO" onPress={uploadImageHandle} />
-    </ThemeProvider>
+    <View style={globalTheme.buttonContainerStyle}>
+      <Button
+        title="ENVIAR FOTO"
+        onPress={uploadImageHandle}
+        color="#ffad33"
+        disable={disable}
+      />
+    </View>
   );
 }

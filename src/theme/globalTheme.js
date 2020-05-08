@@ -1,7 +1,7 @@
 const globalTheme = {
   divider: {backgroundColor: 'grey', marginTop: 10},
-  text: {marginTop: 10},
-  headerText: {fontWeight: 'bold'},
+  text: {marginStart: 10, marginTop: 10},
+  headerText: {fontWeight: 'bold', textAlign: 'center', marginTop: 5},
   errorText: {
     color: 'crimson',
     fontWeight: 'bold',
@@ -30,17 +30,31 @@ const globalTheme = {
     marginBottom: 10,
     fontWeight: 'bold',
   },
-  Button: {
-    containerStyle: {
-      paddingTop: 20,
-      width: '50%',
-    },
-    titleStyle: {
-      color: 'black',
-    },
-    buttonStyle: {
-      backgroundColor: '#ffad33',
-    },
+  // Button: {
+  //   containerStyle: {
+  //     paddingTop: 20,
+  //     width: '50%',
+  //   },
+  //   titleStyle: {
+  //     color: 'black',
+  //   },
+  //   buttonStyle: {
+  //     backgroundColor: '#ffad33',
+  //   },
+  // },
+  avatar: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingTop: 10,
+    width: 200,
+    height: 200,
+  },
+  buttonContainerStyle: {
+    marginBottom: 10,
+    paddingTop: 20,
+    marginStart: 30,
+    marginEnd: 30,
   },
 };
 

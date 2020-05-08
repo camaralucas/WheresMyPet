@@ -30,7 +30,13 @@ function animalFormSchema({checkedEye, checkedFur}) {
       .string()
       .required()
       .min(2),
-    secundary_fur: !checkedFur ? undefined : yup.string().min(2),
+    secundary_fur: !checkedFur
+      ? undefined
+      : yup
+          .string()
+          .required()
+          .min(2),
+    // observation: !yup.string().max(30),
   });
 }
 

@@ -13,8 +13,9 @@ import Animated from 'react-native-reanimated';
 // Screens
 import HomeScreen from './screens/HomeScreen';
 import RegisterAnimalIndex from './screens/RegisterAnimalIndex';
-import RegisterAnimalFormScreen from './screens/RegisterAnimalFormScreen';
 import RegisterAnimalImageSelectScreen from './screens/RegisterAnimalImageSelectScreen';
+import RegisterAnimalFormScreen from './screens/RegisterAnimalFormScreen';
+import RegisterAnimalObsScreen from './screens/RegisterAnimalObsScreen';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -56,14 +57,19 @@ const Screens = ({navigation, style}) => {
           options={{title: 'Cadastrar animal perdido'}}
         />
         <Stack.Screen
+          name="RegisterAnimalImageSelectScreen"
+          component={RegisterAnimalImageSelectScreen}
+          options={{title: 'Selecionar foto'}}
+        />
+        <Stack.Screen
           name="RegisterAnimalFormScreen"
           component={RegisterAnimalFormScreen}
           options={{title: 'Preencha os campos'}}
         />
         <Stack.Screen
-          name="RegisterAnimalImageSelectScreen"
-          component={RegisterAnimalImageSelectScreen}
-          options={{title: 'Selecionar foto'}}
+          name="RegisterAnimalObsScreen"
+          component={RegisterAnimalObsScreen}
+          options={{title: 'Observações finais'}}
         />
       </Stack.Navigator>
     </Animated.View>

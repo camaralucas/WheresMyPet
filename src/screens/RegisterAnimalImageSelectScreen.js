@@ -1,9 +1,10 @@
 import React from 'react';
 import globalTheme from '../theme/globalTheme';
-import {ThemeProvider, Button, Avatar} from 'react-native-elements';
-import {SafeAreaView} from 'react-native';
+import {Avatar} from 'react-native-elements';
+import {SafeAreaView, View, Button} from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 import UploadImageButton from '../components/buttons/UploadImageButton';
+import CustomButton from '../components/buttons/CustomButton';
 
 export default function RegisterAnimalImageSelectScreen({route, navigation}) {
   const defaultImage = require('../assets/dog-and-cat.png');
@@ -26,22 +27,34 @@ export default function RegisterAnimalImageSelectScreen({route, navigation}) {
   }
 
   return (
-    <ThemeProvider theme={globalTheme}>
-      <SafeAreaView style={globalTheme.container}>
+    <SafeAreaView>
+      <View
+        style={{
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}>
         <Avatar
+          avatarStyle={globalTheme.avatar}
           rounded
           source={!animal.image.uri ? defaultImage : {uri: animal.image.uri}}
           onPress={imagePicker}
+          containerStyle={globalTheme.avatar}
         />
-        <Button title="SELECIONAR FOTO" onPress={imagePicker} />
-        <Button
-          title="APAGAR FOTO"
-          onPress={() => {
-            navigation.setParams((animal.image.uri = null));
-          }}
-        />
-        <UploadImageButton route={route} navigation={navigation} />
-      </SafeAreaView>
-    </ThemeProvider>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}>
+          <CustomButton title="SELECIONAR FOTO" onPress={imagePicker} />
+          <CustomButton
+            title="APAGAR FOTO"
+            onPress={() => navigation.setParams((animal.image.uri = null))}
+          />
+        </View>
+      </View>
+      <UploadImageButton route={route} navigation={navigation} />
+    </SafeAreaView>
   );
 }

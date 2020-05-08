@@ -1,7 +1,7 @@
 import React from 'react';
 import globalTheme from '../theme/globalTheme';
 import {View, Text, TextInput} from 'react-native';
-import {Divider, CheckBox} from 'react-native-elements';
+import {Divider} from 'react-native-elements';
 
 export default function FormInput({
   header = false,
@@ -11,9 +11,6 @@ export default function FormInput({
   divider = true,
   errorMessage,
   touched,
-  titleCheckbox,
-  onPressCheckbox,
-  checkedCheckbox,
 }) {
   return (
     <View>
@@ -25,16 +22,10 @@ export default function FormInput({
           alignItems: 'center',
         }}>
         {header && <Text style={globalTheme.headerText}>{header}</Text>}
-        {titleCheckbox && (
-          <CheckBox
-            title={titleCheckbox}
-            checked={checkedCheckbox}
-            onPress={onPressCheckbox}
-          />
-        )}
       </View>
       <Text style={globalTheme.text}>{title} </Text>
       <TextInput
+        multiline={true}
         style={globalTheme.input}
         placeholder="Digite aqui..."
         onChangeText={onChangeText}
