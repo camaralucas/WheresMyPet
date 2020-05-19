@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {
   DrawerItem,
@@ -10,12 +9,13 @@ import DrawerHeader from './components/DrawerHeader';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Animated from 'react-native-reanimated';
 
-// Screens
+// Screens register animal
 import HomeScreen from './screens/HomeScreen';
-import RegisterAnimalIndex from './screens/RegisterAnimalIndex';
-import RegisterAnimalImageSelectScreen from './screens/RegisterAnimalImageSelectScreen';
-import RegisterAnimalFormScreen from './screens/RegisterAnimalFormScreen';
-import RegisterAnimalObsScreen from './screens/RegisterAnimalObsScreen';
+import SelectSpecieScreen from './screens/register/animal/SelectSpecieScreen';
+import BreedSelectScreen from './screens/register/animal/BreedSelectScreen';
+import ImageSelectScreen from './screens/register/animal/ImageSelectScreen';
+import FormScreen from './screens/register/animal/FormScreen';
+import ObservationScreen from './screens/register/animal/ObservationScreen';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -52,23 +52,28 @@ const Screens = ({navigation, style}) => {
           }}
         />
         <Stack.Screen
-          name="RegisterAnimalIndex"
-          component={RegisterAnimalIndex}
+          name="SelectSpecieScreen"
+          component={SelectSpecieScreen}
           options={{title: 'Cadastrar animal perdido'}}
         />
         <Stack.Screen
-          name="RegisterAnimalImageSelectScreen"
-          component={RegisterAnimalImageSelectScreen}
+          name="BreedSelectScreen"
+          component={BreedSelectScreen}
+          options={{title: 'Selecione a raça do animal'}}
+        />
+        <Stack.Screen
+          name="ImageSelectScreen"
+          component={ImageSelectScreen}
           options={{title: 'Selecionar foto'}}
         />
         <Stack.Screen
-          name="RegisterAnimalFormScreen"
-          component={RegisterAnimalFormScreen}
+          name="FormScreen"
+          component={FormScreen}
           options={{title: 'Preencha os campos'}}
         />
         <Stack.Screen
-          name="RegisterAnimalObsScreen"
-          component={RegisterAnimalObsScreen}
+          name="ObservationScreen"
+          component={ObservationScreen}
           options={{title: 'Observações finais'}}
         />
       </Stack.Navigator>
@@ -88,7 +93,7 @@ const DrawerContent = props => {
       />
       <DrawerItem
         label="Cadastrar animal perdido"
-        onPress={() => props.navigation.navigate('RegisterAnimalIndex')}
+        onPress={() => props.navigation.navigate('SelectSpecieScreen')}
         labelStyle={{marginLeft: -16, marginVertical: -10, marginBottom: -10}}
         icon={() => <Icon name="paw" size={16} />}
       />
@@ -118,21 +123,19 @@ export default () => {
   const screenTheme = {borderRadius, transform: [{scale}]};
 
   return (
-    <NavigationContainer>
-      <Drawer.Navigator
-        drawerType="slide"
-        overlayColor="transparent"
-        initialRouteName="HomeScreen"
-        drawerStyle={{width: '60%'}}
-        sceneContainerStyle={{backgroundColor: '#ffcc80'}}
-        drawerContent={props => {
-          setProgress(props.progress);
-          return <DrawerContent {...props} />;
-        }}>
-        <Drawer.Screen name="Screens">
-          {props => <Screens {...props} style={screenTheme} />}
-        </Drawer.Screen>
-      </Drawer.Navigator>
-    </NavigationContainer>
+    <Drawer.Navigator
+      drawerType="slide"
+      overlayColor="transparent"
+      initialRouteName="HomeScreen"
+      drawerStyle={{width: '60%'}}
+      sceneContainerStyle={{backgroundColor: '#ffcc80'}}
+      drawerContent={props => {
+        setProgress(props.progress);
+        return <DrawerContent {...props} />;
+      }}>
+      <Drawer.Screen name="Screens">
+        {props => <Screens {...props} style={screenTheme} />}
+      </Drawer.Screen>
+    </Drawer.Navigator>
   );
 };

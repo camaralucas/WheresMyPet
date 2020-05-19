@@ -1,21 +1,23 @@
 {
     "AWSTemplateFormatVersion": "2010-09-09",
     "Parameters": {
-        "authwheresmypet81d06a8981d06a89UserPoolId": {
+        "authwheresmypet09da3eea09da3eeaUserPoolId": {
             "Type": "String",
-            "Default": "authwheresmypet81d06a8981d06a89UserPoolId"
+            "Default": "authwheresmypet09da3eea09da3eeaUserPoolId"
         },
-        "authwheresmypet81d06a8981d06a89IdentityPoolId": {
+        
+        "authwheresmypet09da3eea09da3eeaIdentityPoolId": {
             "Type": "String",
-            "Default": "authwheresmypet81d06a8981d06a89IdentityPoolId"
+            "Default": "authwheresmypet09da3eea09da3eeaIdentityPoolId"
         },
-        "authwheresmypet81d06a8981d06a89AppClientID": {
+        
+        "authwheresmypet09da3eea09da3eeaAppClientID": {
             "Type": "String",
-            "Default": "authwheresmypet81d06a8981d06a89AppClientID"
+            "Default": "authwheresmypet09da3eea09da3eeaAppClientID"
         },
-        "authwheresmypet81d06a8981d06a89AppClientIDWeb": {
+        "authwheresmypet09da3eea09da3eeaAppClientIDWeb": {
             "Type": "String",
-            "Default": "authwheresmypet81d06a8981d06a89AppClientIDWeb"
+            "Default": "authwheresmypet09da3eea09da3eeaAppClientIDWeb"
         },
         "AuthRoleArn": {
             "Type": "String"
@@ -44,17 +46,20 @@
           "Properties" : {
               "GroupName" : "users",
               "Precedence" : 1,
+              
               "RoleArn" : {
                 "Fn::GetAtt": [
                     "usersGroupRole",
                     "Arn"
                 ]
               },
+              
               "UserPoolId" : {
-                "Ref": "authwheresmypet81d06a8981d06a89UserPoolId"
+                "Ref": "authwheresmypet09da3eea09da3eeaUserPoolId"
               } 
             }
         },
+        
         "usersGroupRole": {
             "Type": "AWS::IAM::Role",
             "Properties": {
@@ -63,7 +68,7 @@
                         "",
                         [
                           {
-                            "Ref": "authwheresmypet81d06a8981d06a89UserPoolId"
+                            "Ref": "authwheresmypet09da3eea09da3eeaUserPoolId"
                           },
                           "-usersGroupRole"
                         ]
@@ -80,7 +85,7 @@
                             },
                             "Action": "sts:AssumeRoleWithWebIdentity",
                             "Condition": {
-                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authwheresmypet81d06a8981d06a89IdentityPoolId"}},
+                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authwheresmypet09da3eea09da3eeaIdentityPoolId"}},
                               "ForAnyValue:StringLike": {"cognito-identity.amazonaws.com:amr": "authenticated"}
                             }
                         }
@@ -88,6 +93,8 @@
                 }
             }
         },
+     
+    
     
         "LambdaExecutionRole": {
             "Type": "AWS::IAM::Role",
@@ -104,7 +111,7 @@
                                 "",
                                 [
                                   
-                                  "wheresmypet81d06a8981d06a89",
+                                  "wheresmypet09da3eea09da3eea",
                                   "-ExecutionRole-",
                                   {
                                     "Ref": "env"
@@ -263,16 +270,16 @@
                     "Ref": "UnauthRoleArn"
                 },
                 "identityPoolId": {
-                    "Ref": "authwheresmypet81d06a8981d06a89IdentityPoolId"
+                    "Ref": "authwheresmypet09da3eea09da3eeaIdentityPoolId"
                 },
                 "userPoolId": {
-                    "Ref": "authwheresmypet81d06a8981d06a89UserPoolId"
+                    "Ref": "authwheresmypet09da3eea09da3eeaUserPoolId"
                 },
                 "appClientIDWeb": {
-                    "Ref": "authwheresmypet81d06a8981d06a89AppClientIDWeb"
+                    "Ref": "authwheresmypet09da3eea09da3eeaAppClientIDWeb"
                 },
                 "appClientID": {
-                    "Ref": "authwheresmypet81d06a8981d06a89AppClientID"
+                    "Ref": "authwheresmypet09da3eea09da3eeaAppClientID"
                 },
                 "region": {
                     "Ref": "AWS::Region"
@@ -283,7 +290,9 @@
             },
             "DependsOn": ["RoleMapFunction"]
         }
+   
     },
+    
     "Outputs": {
       
         "usersGroupRole": {
@@ -298,4 +307,5 @@
         
       
     }
+    
 }

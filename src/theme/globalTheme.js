@@ -1,4 +1,29 @@
-const globalTheme = {
+const GlobalTheme = {
+  Button: {
+    containerStyle: {
+      marginBottom: 10,
+      marginTop: 20,
+      marginStart: 50,
+      marginEnd: 50,
+    },
+    titleStyle: {
+      color: 'black',
+    },
+    buttonStyle: {
+      backgroundColor: '#ffad33',
+    },
+  },
+  Avatar: {
+    containerStyle: {
+      marginTop: 20,
+      marginStart: 65,
+      marginEnd: 65,
+      borderWidth: 2,
+      borderColor: '#000000',
+      width: '70%',
+      height: '50%',
+    },
+  },
   divider: {backgroundColor: 'grey', marginTop: 10},
   text: {marginStart: 10, marginTop: 10},
   headerText: {fontWeight: 'bold', textAlign: 'center', marginTop: 5},
@@ -30,32 +55,6 @@ const globalTheme = {
     marginBottom: 10,
     fontWeight: 'bold',
   },
-  // Button: {
-  //   containerStyle: {
-  //     paddingTop: 20,
-  //     width: '50%',
-  //   },
-  //   titleStyle: {
-  //     color: 'black',
-  //   },
-  //   buttonStyle: {
-  //     backgroundColor: '#ffad33',
-  //   },
-  // },
-  avatar: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingTop: 10,
-    width: 200,
-    height: 200,
-  },
-  buttonContainerStyle: {
-    marginBottom: 10,
-    paddingTop: 20,
-    marginStart: 30,
-    marginEnd: 30,
-  },
 };
 
-export default globalTheme;
+export default GlobalTheme;

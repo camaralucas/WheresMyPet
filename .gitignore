@@ -34,7 +34,6 @@ local.properties
 node_modules/
 npm-debug.log
 yarn-error.log
-package-lock.json
 
 # BUCK
 buck-out/
@@ -59,9 +58,6 @@ buck-out/
 # CocoaPods
 /ios/Pods/
 
-#dev
-notes.txt
-
 #amplify
 amplify/\#current-cloud-backend
 amplify/.config/local-*
@@ -74,5 +70,6 @@ node_modules/
 aws-exports.js
 awsconfiguration.json
 amplifyconfiguration.json
+amplify-build-config.json
 amplify-gradle-config.json
 amplifyxc.config

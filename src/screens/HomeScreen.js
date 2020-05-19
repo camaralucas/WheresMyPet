@@ -1,15 +1,12 @@
 import React from 'react';
 import {SafeAreaView} from 'react-native';
 import {ThemeProvider, Text, Button} from 'react-native-elements';
-import globalTheme from '../theme/globalTheme';
+import GlobalTheme from '../theme/GlobalTheme';
 
 export default function HomeScreen({route, navigation}) {
-  console.log('navigation → ', navigation);
-  console.log('route → ', route);
-
   return (
-    <ThemeProvider theme={globalTheme}>
-      <SafeAreaView style={globalTheme.container}>
+    <ThemeProvider theme={GlobalTheme}>
+      <SafeAreaView style={GlobalTheme.container}>
         <Text> Home screen </Text>
       </SafeAreaView>
     </ThemeProvider>

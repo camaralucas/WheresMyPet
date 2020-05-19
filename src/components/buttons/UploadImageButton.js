@@ -6,30 +6,34 @@ import globalTheme from '../../theme/globalTheme';
 export default function UploadImageButton({
   route,
   navigation,
-  disable = false,
+  disabled = false,
 }) {
-  const {animal} = route.params;
+  let {animal} = route.params;
 
   async function uploadImageHandle() {
     try {
-      if (animal.image.uri) {
+      if (animal.photoURI) {
         let timestamp = new Date().getTime();
-        let imageInfo = await Storage.put(timestamp, animal.image.uri, {
+        const response = await fetch(animal.photoURI);
+        const blob = await response.blob();
+
+        let imageInfo = await Storage.put(`${timestamp}.jpeg`, blob, {
           contentType: 'image/jpeg',
         });
-        navigation.setParams((animal.image.key = imageInfo.key));
-        setSignedURL;
+
+        console.log('IMAGE INFO → ', imageInfo);
+
+        if (imageInfo.key) {
+          let signedURL = await Storage.get(imageInfo.key);
+          console.log('SIGNED URL → ', signedURL);
+
+          animal = {...animal, photoKey: imageInfo.key, photoURL: signedURL};
+        }
+
         Alert.alert('SUCESSO', 'Imagem enviada com sucesso!');
-        navigation.navigate('RegisterAnimalFormScreen', {animal});
+        navigation.navigate('FormScreen', {animal});
       } else {
         Alert.alert('ERRO', 'Foto não selecionada.');
-      }
-
-      async function setSignedURL() {
-        if (animal.image.key) {
-          let signedURL = await Storage.get(animal.image.key);
-          setParams((animal.image.signedURL = signedURL));
-        }
       }
     } catch (e) {
       console.log('ERRO', e);
@@ -42,7 +46,7 @@ export default function UploadImageButton({
         title="ENVIAR FOTO"
         onPress={uploadImageHandle}
         color="#ffad33"
-        disable={disable}
+        disabled={disabled}
       />
     </View>
   );

@@ -1,9 +1,9 @@
 {
 	"function": {
-		"wheresmypet81d06a8981d06a89PostConfirmation": {
-			"service": "Lambda",
+		"wheresmypet09da3eea09da3eeaPostConfirmation": {
+			"build": true,
 			"providerPlugin": "awscloudformation",
-			"build": true
+			"service": "Lambda"
 		}
 	},
 	"auth": {
@@ -13,7 +13,7 @@
 			"dependsOn": [
 				{
 					"category": "auth",
-					"resourceName": "wheresmypet81d06a8981d06a89",
+					"resourceName": "wheresmypet09da3eea09da3eea",
 					"attributes": [
 						"UserPoolId",
 						"AppClientIDWeb",
@@ -23,13 +23,13 @@
 				}
 			]
 		},
-		"wheresmypet81d06a8981d06a89": {
+		"wheresmypet09da3eea09da3eea": {
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation",
 			"dependsOn": [
 				{
 					"category": "function",
-					"resourceName": "wheresmypet81d06a8981d06a89PostConfirmation",
+					"resourceName": "wheresmypet09da3eea09da3eeaPostConfirmation",
 					"triggerProvider": "Cognito",
 					"attributes": [
 						"Arn",
@@ -39,21 +39,34 @@
 			]
 		}
 	},
-	"api": {
-		"wheresmypet": {
-			"service": "AppSync",
+	"storage": {
+		"s3117192a6": {
+			"service": "S3",
 			"providerPlugin": "awscloudformation",
-			"output": {
-				"authConfig": {
-					"additionalAuthenticationProviders": [],
-					"defaultAuthentication": {
-						"authenticationType": "AMAZON_COGNITO_USER_POOLS",
-						"userPoolConfig": {
-							"userPoolId": "authwheresmypet81d06a8981d06a89"
-						}
-					}
+			"dependsOn": [
+				{
+					"category": "auth",
+					"resourceName": "wheresmypet09da3eea09da3eea",
+					"attributes": [
+						"UserPoolId"
+					]
+				},
+				{
+					"category": "auth",
+					"resourceName": "userPoolGroups",
+					"attributes": [
+						"usersGroupRole"
+					]
 				}
-			}
+			]
+		}
+	},
+	"predictions": {
+		"identifyLabels29a728cc": {
+			"providerPlugin": "awscloudformation",
+			"service": "Rekognition",
+			"dependsOn": [],
+			"identifyType": "identifyLabels"
 		}
 	}
 }
