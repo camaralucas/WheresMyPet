@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
-import GlobalTheme from '../../../theme/GlobalTheme';
+import GlobalTheme from '../../../styles/GlobalTheme';
 import {
   SafeAreaView,
   ScrollView,
   TouchableWithoutFeedback,
   Keyboard,
+  View,
 } from 'react-native';
 import {Formik} from 'formik';
 import FormInput from '../../../components/FormInput';
@@ -24,24 +25,27 @@ export default function ObservationScreen({route, navigation}) {
   return (
     <Formik
       initialValues={{...animal}}
+      enableReinitialize={true}
       validationSchema={ObservationFormSchema()}
       onSubmit={values => {
         setAnimal(values);
-        console.log('VALUES → ', values);
       }}>
       {({values, handleChange, handleSubmit, errors, touched}) => (
         <SafeAreaView>
           <ThemeProvider theme={GlobalTheme}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
               <ScrollView>
-                <FormInput
-                  title="Insira aqui alguma informação que ajuda na identificação do animal"
-                  onChangeText={handleChange('observation')}
-                  value={values.observation}
-                  errorMessage={errors.observation}
-                  touched={touched.observation}
-                />
-                <Button title="FINALIZAR CADASTRO" onPress={handleSubmit} />
+                <View style={GlobalTheme.container}>
+                  <FormInput
+                    title="Insira aqui alguma informação que ajude na identificação do animal. (máximo de 30 caracteres)"
+                    onChangeText={handleChange('observation')}
+                    value={values.observation}
+                    errorMessage={errors.observation}
+                    touched={touched.observation}
+                    multiline={true}
+                  />
+                  <Button title="FINALIZAR CADASTRO" onPress={handleSubmit} />
+                </View>
               </ScrollView>
             </TouchableWithoutFeedback>
           </ThemeProvider>

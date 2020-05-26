@@ -1,5 +1,5 @@
 import React from 'react';
-import GlobalTheme from '../theme/GlobalTheme';
+import GlobalTheme from '../styles/GlobalTheme';
 import {View, Text, TextInput} from 'react-native';
 import {Divider} from 'react-native-elements';
 
@@ -11,6 +11,7 @@ export default function FormInput({
   divider = true,
   errorMessage,
   touched,
+  multiline = false,
 }) {
   return (
     <View>
@@ -25,7 +26,7 @@ export default function FormInput({
       </View>
       <Text style={GlobalTheme.text}>{title} </Text>
       <TextInput
-        multiline={true}
+        multiline={multiline}
         style={GlobalTheme.input}
         placeholder="Digite aqui..."
         onChangeText={onChangeText}

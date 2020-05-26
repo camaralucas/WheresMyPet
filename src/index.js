@@ -5,9 +5,11 @@ import Localei18n from './config/Localei18n';
 import DrawerNavigator from './navigator';
 import {withAuthenticator} from 'aws-amplify-react-native';
 import SignUpConfig from './config/SignUpConfig';
-import amplifyTheme from './theme/amplifyTheme';
+import amplifyTheme from './styles/amplifyTheme';
 import Amplify from 'aws-amplify';
 import awsconfig from '../aws-exports';
+
+import {AmazonAIPredictionsProvider} from '@aws-amplify/predictions';
 
 Amplify.configure({
   ...awsconfig,
@@ -15,6 +17,8 @@ Amplify.configure({
     disabled: true,
   },
 });
+
+Amplify.addPluggable(new AmazonAIPredictionsProvider());
 
 <Localei18n />; // Language
 

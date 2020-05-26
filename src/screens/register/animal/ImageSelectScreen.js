@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from 'react';
-import GlobalTheme from '../../../theme/GlobalTheme';
+import GlobalTheme from '../../../styles/GlobalTheme';
+import {SafeAreaView, View} from 'react-native';
 import {ThemeProvider, Button, Avatar} from 'react-native-elements';
-import {SafeAreaView} from 'react-native';
+import UploadImageButton from '../../../components/buttons/UploadImageButton';
 import ImagePicker from 'react-native-image-picker';
 
 export default function ImageSelectScreen({route, navigation}) {
   const defaultImage = require('../../../assets/dog-and-cat.png');
+
   const [animal, setAnimal] = useState(route.params.animal);
 
   useEffect(() => {
@@ -36,7 +38,6 @@ export default function ImageSelectScreen({route, navigation}) {
     <SafeAreaView>
       <ThemeProvider theme={GlobalTheme}>
         <Avatar
-          rounded
           source={!animal.photoURI ? defaultImage : {uri: animal.photoURI}}
           onPress={imagePicker}
         />
@@ -44,15 +45,24 @@ export default function ImageSelectScreen({route, navigation}) {
         <Button
           title="APAGAR FOTO"
           onPress={() => setAnimal({...animal, photoURI: null})}
+          disabled={!animal.photoURI}
         />
         <Button
           title="PRÓXIMO"
           onPress={() => {
-            navigation.navigate('BreedSelectScreen', {animal});
+            navigation.navigate('CollarScreen', {animal});
           }}
+          disabled={!animal.photoURI}
+        />
+        <UploadImageButton
+          navigation={navigation}
+          animal={animal}
+          title={'ENVIAR FOTO'}
           disabled={!animal.photoURI}
         />
       </ThemeProvider>
     </SafeAreaView>
   );
 }
+
+// <UploadImageButton navigation={navigation} animal={animal} title={"ENVIAR IMAGEM"} disabled={!animal.photoURI} />

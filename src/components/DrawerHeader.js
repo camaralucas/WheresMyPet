@@ -1,11 +1,11 @@
 import React from 'react';
-import GlobalTheme from '../theme/GlobalTheme';
-import {ThemeProvider, Text} from 'react-native-elements';
+import GlobalTheme from '../styles/GlobalTheme';
+import {View, Text} from 'react-native';
 
 const DrawerHeader = () => (
-  <ThemeProvider>
+  <View>
     <Text style={GlobalTheme.drawerHeader}>MENU</Text>
-  </ThemeProvider>
+  </View>
 );
 
 export default DrawerHeader;

@@ -1,14 +1,18 @@
 import React from 'react';
-import {Alert, View, Button} from 'react-native';
+import {Alert} from 'react-native';
+import {ThemeProvider, Button} from 'react-native-elements';
 import {Storage} from 'aws-amplify';
-import globalTheme from '../../theme/globalTheme';
+import GlobalTheme from '../../styles/GlobalTheme';
+
+import Predictions from '@aws-amplify/predictions';
 
 export default function UploadImageButton({
-  route,
   navigation,
+  animal,
+  title,
   disabled = false,
 }) {
-  let {animal} = route.params;
+  console.log('ANIMAL → ', animal);
 
   async function uploadImageHandle() {
     try {
@@ -21,17 +25,14 @@ export default function UploadImageButton({
           contentType: 'image/jpeg',
         });
 
-        console.log('IMAGE INFO → ', imageInfo);
-
         if (imageInfo.key) {
           let signedURL = await Storage.get(imageInfo.key);
-          console.log('SIGNED URL → ', signedURL);
 
           animal = {...animal, photoKey: imageInfo.key, photoURL: signedURL};
+          Alert.alert('SUCESSO', 'Imagem enviada com sucesso!');
+          indetifyLabels(animal.photoKey);
         }
-
-        Alert.alert('SUCESSO', 'Imagem enviada com sucesso!');
-        navigation.navigate('FormScreen', {animal});
+        navigation.setParams({animal: animal});
       } else {
         Alert.alert('ERRO', 'Foto não selecionada.');
       }
@@ -40,14 +41,36 @@ export default function UploadImageButton({
     }
   }
 
+  async function indetifyLabels(key) {
+    Predictions.identify({
+      labels: {
+        source: {
+          key: key,
+        },
+        type: 'LABELS',
+      },
+    })
+      .then(response => {
+        console.log('RESPONSE → ', response);
+        const {labels} = response;
+        labels.forEach(object => {
+          const {name, boundingBoxes} = object;
+          console.log('NAME → ', name, 'boundingBoxes → ', boundingBoxes);
+        });
+      })
+      .catch(err => console.log({err}));
+  }
+
   return (
-    <View style={globalTheme.buttonContainerStyle}>
-      <Button
-        title="ENVIAR FOTO"
-        onPress={uploadImageHandle}
-        color="#ffad33"
-        disabled={disabled}
-      />
-    </View>
+    <ThemeProvider theme={GlobalTheme}>
+      <Button title={title} onPress={uploadImageHandle} disabled={disabled} />
+    </ThemeProvider>
   );
 }
+
+// labels: {
+//   source: {
+//     key: key,
+//   },
+//   type: 'LABELS',
+// },

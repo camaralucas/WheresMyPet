@@ -1,10 +1,10 @@
 import React from 'react';
-import {View, Picker, StyleSheet, Text} from 'react-native';
-import GlobalTheme from '../theme/GlobalTheme';
+import {View, Picker, Text} from 'react-native';
+import GlobalTheme from '../styles/GlobalTheme';
 
 export default function ColorPicker({title, selectedValue, onValueChange}) {
   return (
-    <View style={styles.container}>
+    <View style={GlobalTheme.container}>
       <Text style={GlobalTheme.text}>{title}</Text>
       <View
         style={{
@@ -16,8 +16,8 @@ export default function ColorPicker({title, selectedValue, onValueChange}) {
           style={{
             width: 20,
             height: 20,
+            marginStart: 15,
             backgroundColor: selectedValue,
-            marginStart: 10,
             borderWidth: 1,
             borderColor: '#000000',
           }}
@@ -38,12 +38,3 @@ export default function ColorPicker({title, selectedValue, onValueChange}) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    paddingTop: 10,
-    justifyContent: 'space-between',
-  },
-});

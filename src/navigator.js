@@ -11,10 +11,13 @@ import Animated from 'react-native-reanimated';
 
 // Screens register animal
 import HomeScreen from './screens/HomeScreen';
+import MapScreen from './screens/MapScreen';
 import SelectSpecieScreen from './screens/register/animal/SelectSpecieScreen';
 import BreedSelectScreen from './screens/register/animal/BreedSelectScreen';
 import ImageSelectScreen from './screens/register/animal/ImageSelectScreen';
-import FormScreen from './screens/register/animal/FormScreen';
+import CollorsFormScreen from './screens/register/animal/CollorsFormScreen';
+import CollarScreen from './screens/register/animal/CollarScreen';
+import AddressScreen from './screens/register/animal/AddressScreen';
 import ObservationScreen from './screens/register/animal/ObservationScreen';
 
 const Stack = createStackNavigator();
@@ -24,7 +27,7 @@ const Screens = ({navigation, style}) => {
   return (
     <Animated.View style={[{flex: 1, overflow: 'hidden'}, style]}>
       <Stack.Navigator
-        initialRouteName="HomeScreen"
+        initialRouteName="MapScreen"
         screenOptions={{
           gestureEnabled: true,
           headerStyle: {
@@ -52,6 +55,22 @@ const Screens = ({navigation, style}) => {
           }}
         />
         <Stack.Screen
+          name="MapScreen"
+          component={MapScreen}
+          options={{
+            title: 'Mapa',
+            headerLeft: () => (
+              <Icon
+                name="bars"
+                size={18}
+                color="#000000"
+                style={{marginStart: 20}}
+                onPress={() => navigation.openDrawer()}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
           name="SelectSpecieScreen"
           component={SelectSpecieScreen}
           options={{title: 'Cadastrar animal perdido'}}
@@ -67,9 +86,19 @@ const Screens = ({navigation, style}) => {
           options={{title: 'Selecionar foto'}}
         />
         <Stack.Screen
-          name="FormScreen"
-          component={FormScreen}
-          options={{title: 'Preencha os campos'}}
+          name="CollorsFormScreen"
+          component={CollorsFormScreen}
+          options={{title: 'Selecione os campos'}}
+        />
+        <Stack.Screen
+          name="CollarScreen"
+          component={CollarScreen}
+          options={{title: 'Informações na coleira'}}
+        />
+        <Stack.Screen
+          name="AddressScreen"
+          component={AddressScreen}
+          options={{title: 'Cadastrar endereço'}}
         />
         <Stack.Screen
           name="ObservationScreen"
