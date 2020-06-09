@@ -5,9 +5,12 @@ import {ThemeProvider, Button, Avatar} from 'react-native-elements';
 import UploadImageButton from '../../../components/buttons/UploadImageButton';
 import ImagePicker from 'react-native-image-picker';
 
-export default function ImageSelectScreen({route, navigation}) {
-  const defaultImage = require('../../../assets/dog-and-cat.png');
+import Amplify from 'aws-amplify';
+import {AmazonAIPredictionsProvider} from '@aws-amplify/predictions';
 
+Amplify.addPluggable(new AmazonAIPredictionsProvider());
+
+export default function ImageSelectScreen({route, navigation}) {
   const [animal, setAnimal] = useState(route.params.animal);
 
   useEffect(() => {
@@ -38,7 +41,11 @@ export default function ImageSelectScreen({route, navigation}) {
     <SafeAreaView>
       <ThemeProvider theme={GlobalTheme}>
         <Avatar
-          source={!animal.photoURI ? defaultImage : {uri: animal.photoURI}}
+          source={
+            !animal.photoURI
+              ? require('../../../assets/dog-and-cat.png')
+              : {uri: animal.photoURI}
+          }
           onPress={imagePicker}
         />
         <Button title="SELECIONAR FOTO" onPress={imagePicker} />
@@ -50,7 +57,7 @@ export default function ImageSelectScreen({route, navigation}) {
         <Button
           title="PRÓXIMO"
           onPress={() => {
-            navigation.navigate('CollarScreen', {animal});
+            navigation.navigate('GeneralInfoScreen', {animal});
           }}
           disabled={!animal.photoURI}
         />

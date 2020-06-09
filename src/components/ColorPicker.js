@@ -1,5 +1,6 @@
 import React from 'react';
-import {View, Picker, Text} from 'react-native';
+import {Picker} from '@react-native-community/picker';
+import {View, Text} from 'react-native';
 import GlobalTheme from '../styles/GlobalTheme';
 
 export default function ColorPicker({title, selectedValue, onValueChange}) {
@@ -26,6 +27,7 @@ export default function ColorPicker({title, selectedValue, onValueChange}) {
           selectedValue={selectedValue}
           style={{height: 50, width: 150}}
           onValueChange={onValueChange}>
+          <Picker.Item label={'Selecione...'} value={null} />
           <Picker.Item label="Branco" value="#ffffff" />
           <Picker.Item label="Preto" value="#000000" />
           <Picker.Item label="Amarelo" value="#ffff00" />

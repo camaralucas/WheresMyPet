@@ -1,0 +1,17 @@
+{
+    "trigger": true,
+    "modules": [
+        "add-to-group",
+        "custom"
+    ],
+    "parentResource": "wheresmypet6517f4ee6517f4ee",
+    "functionName": "wheresmypet6517f4ee6517f4eePostConfirmation",
+    "resourceName": "wheresmypet6517f4ee6517f4eePostConfirmation",
+    "parentStack": "auth",
+    "triggerEnvs": [],
+    "triggerDir": "C:\\Users\\6075949\\AppData\\Roaming\\npm\\node_modules\\@aws-amplify\\cli\\node_modules\\amplify-category-auth\\provider-utils\\awscloudformation\\utils/../triggers/PostConfirmation",
+    "triggerTemplate": "PostConfirmation.json.ejs",
+    "roleName": "wheresmypet6517f4ee6517f4eePostConfirmation",
+    "skipEdit": true,
+    "GROUP": "users"
+}

@@ -1,0 +1,13 @@
+{
+  "request": {
+    "userPoolId": "testID",
+    "userName": "testUser",
+    "userAttributes": {
+      "sub": "abcdevfefe-1232132-cofeve",
+      "email": "email@email.com.br",
+      "given_name": "testGivenName",
+      "family_name": "testFamilyName"
+    }
+  },
+  "response": {}
+}

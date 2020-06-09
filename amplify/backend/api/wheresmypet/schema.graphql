@@ -1,0 +1,73 @@
+type Address
+  @model(subscriptions: null)
+  @auth(
+    rules: [
+      {allow: owner}
+      {allow: groups, groups: ["users"], operations: [read]}
+    ]
+  ) {
+  id: ID!
+  cep: String!
+  city: String!
+  latitude: String!
+  longitude: String!
+  neighborhood: String!
+  street: String!
+  state: String!
+  user: User! @connection(name: "UserAddresses")
+}
+
+type Animal
+  @model(subscriptions: null)
+  @auth(
+    rules: [
+      {allow: owner}
+      {allow: groups, groups: ["users"], operations: [read]}
+    ]
+  ) {
+  id: ID!
+  address: Address! @connection
+  user: User! @connection(name: "UserAnimals")
+  breed: String!
+  eye_right: String!
+  eye_left: String!
+  name: String!
+  number: String
+  observation: String
+  photoKey: String!
+  photoURL: String!
+  primary_fur: String!
+  secundary_fur: String
+  specie: Int!
+  status: Int!
+  text: String
+}
+
+type Data
+  @model
+  @auth(
+    rules: [
+      {allow: owner}
+      {allow: groups, groups: ["users"], operations: [read]}
+    ]
+  ) {
+  foundCats: Int
+  foundDogs: Int
+}
+
+type User
+  @model(subscriptions: null)
+  @auth(
+    rules: [
+      {allow: owner}
+      {allow: groups, groups: ["users"], operations: [read]}
+    ]
+  ) {
+  id: ID!
+  addresses: [Address] @connection(name: "UserAddresses")
+  animals: [Animal] @connection(name: "UserAnimals")
+  email: String!
+  family_name: String!
+  given_name: String!
+  phone_number: String
+}

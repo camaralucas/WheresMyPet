@@ -85,9 +85,9 @@
 	
     
     
-        "authwheresmypet09da3eea09da3eeaUserPoolId": {
+        "authwheresmypet6517f4ee6517f4eeUserPoolId": {
             "Type": "String",
-            "Default": "authwheresmypet09da3eea09da3eeaUserPoolId"
+            "Default": "authwheresmypet6517f4ee6517f4eeUserPoolId"
         },
         
         
@@ -258,7 +258,7 @@
                         "",
                         [
                           {
-                            "Ref": "authwheresmypet09da3eea09da3eeaUserPoolId"
+                            "Ref": "authwheresmypet6517f4ee6517f4eeUserPoolId"
                           },
                           "-usersGroupRole"
                         ]

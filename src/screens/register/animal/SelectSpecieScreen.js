@@ -2,30 +2,11 @@ import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
 import {ThemeProvider, Button, Icon} from 'react-native-elements';
 import GlobalTheme from '../../../styles/GlobalTheme';
+import animalSchema from '../../../backend/schemas/animalSchema';
 
 export default function SelectSpecieScreen({route, navigation}) {
   const [animal, setAnimal] = useState({
-    address: {
-      cep: null,
-      street: null,
-      neighborhood: null,
-      city: null,
-      state: null,
-    },
-    breed: null,
-    eye_left: '#ffffff',
-    eye_right: null,
-    name: 'Fininho',
-    number: '172614',
-    observation: 'Possui um olho de cada cor',
-    photoKey: null,
-    photoURL: null,
-    photoURI: null,
-    primary_fur: '#ffffff',
-    secundary_fur: null,
-    specie: null,
-    status: 1,
-    text: 'Gato #1',
+    ...animalSchema,
   });
 
   useEffect(() => {

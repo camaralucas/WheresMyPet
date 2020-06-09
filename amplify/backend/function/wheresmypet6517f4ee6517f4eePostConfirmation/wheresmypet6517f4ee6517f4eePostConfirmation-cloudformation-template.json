@@ -61,12 +61,12 @@
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"wheresmypet09da3eea09da3eeaPostConfirmation",
+						"wheresmypet6517f4ee6517f4eePostConfirmation",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"wheresmypet09da3eea09da3eeaPostConfirmation",
+									"wheresmypet6517f4ee6517f4eePostConfirmation",
 									"-",
 									{
 										"Ref": "env"
@@ -101,8 +101,8 @@
 				"Runtime": "nodejs10.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "amplify-wheresmypet-dev-200424-deployment",
-					"S3Key": "amplify-builds/wheresmypet09da3eea09da3eeaPostConfirmation-7a552b486b7257715943-build.zip"
+					"S3Bucket": "amplify-wheresmypet-dev-192432-deployment",
+					"S3Key": "amplify-builds/wheresmypet6517f4ee6517f4eePostConfirmation-4e4a6f686c6736344364-build.zip"
 				}
 			}
 		},
@@ -112,12 +112,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"wheresmypet09da3eea09da3eeaPostConfirmation",
+						"wheresmypet6517f4ee6517f4eePostConfirmation",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"wheresmypet09da3eea09da3eeaPostConfirmation",
+									"wheresmypet6517f4ee6517f4eePostConfirmation",
 									"-",
 									{
 										"Ref": "env"

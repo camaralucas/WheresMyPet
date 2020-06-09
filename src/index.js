@@ -9,16 +9,12 @@ import amplifyTheme from './styles/amplifyTheme';
 import Amplify from 'aws-amplify';
 import awsconfig from '../aws-exports';
 
-import {AmazonAIPredictionsProvider} from '@aws-amplify/predictions';
-
 Amplify.configure({
   ...awsconfig,
   Analytics: {
     disabled: true,
   },
 });
-
-Amplify.addPluggable(new AmazonAIPredictionsProvider());
 
 <Localei18n />; // Language
 

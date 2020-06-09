@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "wheresmypet09da3eea_identitypool_09da3eea",
+    "identityPoolName": "wheresmypet6517f4ee_identitypool_6517f4ee",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "wheres09da3eea",
-    "userPoolName": "wheresmypet09da3eea_userpool_09da3eea",
+    "resourceNameTruncated": "wheres6517f4ee",
+    "userPoolName": "wheresmypet6517f4ee_userpool_6517f4ee",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -31,18 +31,18 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "wheres09da3eea_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "wheres6517f4ee_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
     "useDefault": "manual",
     "authSelections": "identityPoolAndUserPool",
-    "resourceName": "wheresmypet09da3eea09da3eea",
+    "resourceName": "wheresmypet6517f4ee6517f4ee",
     "thirdPartyAuth": false,
     "usernameAttributes": [
         "email"
     ],
     "userPoolGroups": true,
     "adminQueries": false,
-    "triggers": "{\"PostConfirmation\":[\"add-to-group\"]}",
+    "triggers": "{\"PostConfirmation\":[\"add-to-group\",\"custom\"]}",
     "hostedUI": false,
     "userPoolGroupList": [
         "users"
@@ -68,7 +68,7 @@
     "dependsOn": [
         {
             "category": "function",
-            "resourceName": "wheresmypet09da3eea09da3eeaPostConfirmation",
+            "resourceName": "wheresmypet6517f4ee6517f4eePostConfirmation",
             "triggerProvider": "Cognito",
             "attributes": [
                 "Arn",

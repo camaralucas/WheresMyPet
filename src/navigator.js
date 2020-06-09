@@ -5,20 +5,23 @@ import {
   createDrawerNavigator,
   DrawerContentScrollView,
 } from '@react-navigation/drawer';
+import Authenticator from './backend/auth/Authenticator';
 import DrawerHeader from './components/DrawerHeader';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Animated from 'react-native-reanimated';
 
-// Screens register animal
+// Register animal screens
 import HomeScreen from './screens/HomeScreen';
 import MapScreen from './screens/MapScreen';
 import SelectSpecieScreen from './screens/register/animal/SelectSpecieScreen';
 import BreedSelectScreen from './screens/register/animal/BreedSelectScreen';
 import ImageSelectScreen from './screens/register/animal/ImageSelectScreen';
+import GeneralInfoScreen from './screens/register/animal/GeneralInfoScreen';
 import CollorsFormScreen from './screens/register/animal/CollorsFormScreen';
-import CollarScreen from './screens/register/animal/CollarScreen';
-import AddressScreen from './screens/register/animal/AddressScreen';
 import ObservationScreen from './screens/register/animal/ObservationScreen';
+
+// Commons screens
+import AddressScreen from './screens/register/AddressScreen';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -27,7 +30,7 @@ const Screens = ({navigation, style}) => {
   return (
     <Animated.View style={[{flex: 1, overflow: 'hidden'}, style]}>
       <Stack.Navigator
-        initialRouteName="MapScreen"
+        initialRouteName="HomeScreen"
         screenOptions={{
           gestureEnabled: true,
           headerStyle: {
@@ -91,8 +94,8 @@ const Screens = ({navigation, style}) => {
           options={{title: 'Selecione os campos'}}
         />
         <Stack.Screen
-          name="CollarScreen"
-          component={CollarScreen}
+          name="GeneralInfoScreen"
+          component={GeneralInfoScreen}
           options={{title: 'Informações na coleira'}}
         />
         <Stack.Screen
@@ -128,7 +131,7 @@ const DrawerContent = props => {
       />
       <DrawerItem
         label="Sair"
-        onPress={() => console.log('Inserir função de logout')}
+        onPress={async () => await Authenticator().LogoutUser()}
         labelStyle={{marginLeft: -16, marginVertical: -10, marginBottom: -10}}
         icon={() => <Icon name="sign-out-alt" size={16} color="#ff0000" />}
       />

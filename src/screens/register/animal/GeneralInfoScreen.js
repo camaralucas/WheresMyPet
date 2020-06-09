@@ -13,8 +13,9 @@ import {Formik} from 'formik';
 import * as yup from 'yup';
 import FormInput from '../../../components/FormInput';
 import Checkbox from '../../../components/Checkbox';
+import AddressSelect from '../../../components/AddressSelect';
 
-export default function FormScreen({route, navigation}) {
+export default function GeneralInfoScreen({route, navigation}) {
   const [animal, setAnimal] = useState(route.params.animal);
   const [checkedCollarText, setCheckedCollarText] = useState(false);
   const [checkedCollarNumber, setCheckedCollarNumber] = useState(false);
@@ -45,6 +46,7 @@ export default function FormScreen({route, navigation}) {
         .required('campo requerido')
         .min(2, 'mínimo de 2 caracteres')
         .max(15, 'máximo de 15 caracteres'),
+      address: yup.string().required('campo requerido'),
       ...rules,
     });
   }
@@ -69,8 +71,20 @@ export default function FormScreen({route, navigation}) {
                     value={values.name}
                     errorMessage={errors.name}
                     touched={touched.name}
-                    divider={false}
+                    divider={true}
                   />
+                  <AddressSelect
+                    title={'Selecione o ultimo endereço que animal foi visto'}
+                    onValueChange={handleChange('address')}
+                    selectedValue={values.address}
+                  />
+                  <Button
+                    title="Cadastrar novo endereço"
+                    onPress={() =>
+                      navigation.navigate('AddressScreen', {animal: animal})
+                    }
+                  />
+
                   <Text style={{...GlobalTheme.headerText, marginBottom: 20}}>
                     Selecione e preencha os campos abaixo em caso afirmativo
                   </Text>

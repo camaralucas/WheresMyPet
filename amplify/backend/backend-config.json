@@ -1,6 +1,6 @@
 {
 	"function": {
-		"wheresmypet09da3eea09da3eeaPostConfirmation": {
+		"wheresmypet6517f4ee6517f4eePostConfirmation": {
 			"build": true,
 			"providerPlugin": "awscloudformation",
 			"service": "Lambda"
@@ -13,7 +13,7 @@
 			"dependsOn": [
 				{
 					"category": "auth",
-					"resourceName": "wheresmypet09da3eea09da3eea",
+					"resourceName": "wheresmypet6517f4ee6517f4ee",
 					"attributes": [
 						"UserPoolId",
 						"AppClientIDWeb",
@@ -23,13 +23,13 @@
 				}
 			]
 		},
-		"wheresmypet09da3eea09da3eea": {
+		"wheresmypet6517f4ee6517f4ee": {
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation",
 			"dependsOn": [
 				{
 					"category": "function",
-					"resourceName": "wheresmypet09da3eea09da3eeaPostConfirmation",
+					"resourceName": "wheresmypet6517f4ee6517f4eePostConfirmation",
 					"triggerProvider": "Cognito",
 					"attributes": [
 						"Arn",
@@ -40,13 +40,13 @@
 		}
 	},
 	"storage": {
-		"s3117192a6": {
+		"s31f7ef48b": {
 			"service": "S3",
 			"providerPlugin": "awscloudformation",
 			"dependsOn": [
 				{
 					"category": "auth",
-					"resourceName": "wheresmypet09da3eea09da3eea",
+					"resourceName": "wheresmypet6517f4ee6517f4ee",
 					"attributes": [
 						"UserPoolId"
 					]
@@ -62,11 +62,28 @@
 		}
 	},
 	"predictions": {
-		"identifyLabels29a728cc": {
+		"identifyLabels8e36658f": {
 			"providerPlugin": "awscloudformation",
 			"service": "Rekognition",
 			"dependsOn": [],
 			"identifyType": "identifyLabels"
+		}
+	},
+	"api": {
+		"wheresmypet": {
+			"service": "AppSync",
+			"providerPlugin": "awscloudformation",
+			"output": {
+				"authConfig": {
+					"additionalAuthenticationProviders": [],
+					"defaultAuthentication": {
+						"authenticationType": "AMAZON_COGNITO_USER_POOLS",
+						"userPoolConfig": {
+							"userPoolId": "authwheresmypet6517f4ee6517f4ee"
+						}
+					}
+				}
+			}
 		}
 	}
 }
