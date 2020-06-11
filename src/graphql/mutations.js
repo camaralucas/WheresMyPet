@@ -114,50 +114,9 @@ export const createAnimal = /* GraphQL */ `
       id
       address {
         id
-        cep
-        city
-        latitude
-        longitude
-        neighborhood
-        street
-        state
-        user {
-          id
-          email
-          family_name
-          given_name
-          phone_number
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
       }
       user {
         id
-        addresses {
-          nextToken
-          startedAt
-        }
-        animals {
-          nextToken
-          startedAt
-        }
-        email
-        family_name
-        given_name
-        phone_number
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
       }
       breed
       eye_right
@@ -172,11 +131,6 @@ export const createAnimal = /* GraphQL */ `
       specie
       status
       text
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
     }
   }
 `;

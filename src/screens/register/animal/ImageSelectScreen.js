@@ -1,40 +1,18 @@
 import React, {useState, useEffect} from 'react';
+import {SafeAreaView, Alert} from 'react-native';
 import GlobalTheme from '../../../styles/GlobalTheme';
-import {SafeAreaView, View} from 'react-native';
 import {ThemeProvider, Button, Avatar} from 'react-native-elements';
-import UploadImageButton from '../../../components/buttons/UploadImageButton';
-import ImagePicker from 'react-native-image-picker';
-
-import Amplify from 'aws-amplify';
-import {AmazonAIPredictionsProvider} from '@aws-amplify/predictions';
-
-Amplify.addPluggable(new AmazonAIPredictionsProvider());
+import imagePicker from '../../../backend/image-handlers/imagePicker';
 
 export default function ImageSelectScreen({route, navigation}) {
   const [animal, setAnimal] = useState(route.params.animal);
 
-  useEffect(() => {
-    if (route.params?.animal) {
-      setAnimal(route.params.animal);
+  function imagePickerCallback(uri) {
+    if (uri) {
+      setAnimal({...animal, photoURI: uri});
+    } else {
+      Alert.alert('', 'Foto não selecionada');
     }
-  }, [route.params?.animal]);
-
-  function imagePicker() {
-    const options = {
-      title: 'Selecione uma foto',
-      cancelButtonTitle: 'Cancelar',
-      takePhotoButtonTitle: 'Tirar foto...',
-      chooseFromLibraryButtonTitle: 'Escolher da galeria',
-      noData: true,
-      mediaType: 'photo',
-      cameraType: 'back',
-    };
-
-    ImagePicker.showImagePicker(options, response => {
-      if (response.uri) {
-        setAnimal({...animal, photoURI: response.uri});
-      }
-    });
   }
 
   return (
@@ -46,9 +24,16 @@ export default function ImageSelectScreen({route, navigation}) {
               ? require('../../../assets/dog-and-cat.png')
               : {uri: animal.photoURI}
           }
-          onPress={imagePicker}
+          onPress={() =>
+            imagePicker(response => imagePickerCallback(response.uri))
+          }
         />
-        <Button title="SELECIONAR FOTO" onPress={imagePicker} />
+        <Button
+          title="SELECIONAR FOTO"
+          onPress={() =>
+            imagePicker(response => imagePickerCallback(response.uri))
+          }
+        />
         <Button
           title="APAGAR FOTO"
           onPress={() => setAnimal({...animal, photoURI: null})}
@@ -59,12 +44,6 @@ export default function ImageSelectScreen({route, navigation}) {
           onPress={() => {
             navigation.navigate('GeneralInfoScreen', {animal});
           }}
-          disabled={!animal.photoURI}
-        />
-        <UploadImageButton
-          navigation={navigation}
-          animal={animal}
-          title={'ENVIAR FOTO'}
           disabled={!animal.photoURI}
         />
       </ThemeProvider>

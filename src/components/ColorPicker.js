@@ -6,7 +6,7 @@ import GlobalTheme from '../styles/GlobalTheme';
 export default function ColorPicker({title, selectedValue, onValueChange}) {
   return (
     <View style={GlobalTheme.container}>
-      <Text style={GlobalTheme.text}>{title}</Text>
+      <Text>{title}</Text>
       <View
         style={{
           flex: 1,
@@ -17,8 +17,8 @@ export default function ColorPicker({title, selectedValue, onValueChange}) {
           style={{
             width: 20,
             height: 20,
-            marginStart: 15,
-            backgroundColor: selectedValue,
+            backgroundColor:
+              selectedValue == 'null' ? '#ffffff' : selectedValue,
             borderWidth: 1,
             borderColor: '#000000',
           }}
@@ -27,7 +27,7 @@ export default function ColorPicker({title, selectedValue, onValueChange}) {
           selectedValue={selectedValue}
           style={{height: 50, width: 150}}
           onValueChange={onValueChange}>
-          <Picker.Item label={'Selecione...'} value={null} />
+          <Picker.Item label="Selecione" value="null" />
           <Picker.Item label="Branco" value="#ffffff" />
           <Picker.Item label="Preto" value="#000000" />
           <Picker.Item label="Amarelo" value="#ffff00" />

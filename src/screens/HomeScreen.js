@@ -21,7 +21,6 @@ export default function HomeScreen({route, navigation}) {
 
   return (
     <SafeAreaView>
-      {console.log(userAttributes)}
       {isLoaded ? (
         <View style={GlobalTheme.container}>
           <Text>

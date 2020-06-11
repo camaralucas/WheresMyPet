@@ -1,7 +1,8 @@
 const animalSchema = {
-  address: null,
+  animalAddressId: null,
+  animalUserId: null,
   breed: null,
-  eye_left: '#ffffff',
+  eye_left: null,
   eye_right: null,
   name: 'Fininho',
   number: '172614',
@@ -9,12 +10,11 @@ const animalSchema = {
   photoKey: null,
   photoURL: null,
   photoURI: null,
-  primary_fur: '#ffffff',
+  primary_fur: null,
   secundary_fur: null,
-  specie: null,
+  specie: undefined,
   status: 1,
   text: 'Gato #1',
-  user: null,
 };
 
 export default animalSchema;

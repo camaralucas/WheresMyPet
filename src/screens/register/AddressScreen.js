@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import GlobalTheme from '../../styles/GlobalTheme';
 import {
   SafeAreaView,
   ScrollView,
@@ -7,40 +6,40 @@ import {
   Keyboard,
   View,
   Alert,
+  Text,
 } from 'react-native';
 import {ThemeProvider, Button} from 'react-native-elements';
+import GlobalTheme from '../../styles/GlobalTheme';
 import {Formik} from 'formik';
-import * as yup from 'yup';
 import FormInput from '../../components/FormInput';
 import LoadingIndicator from '../../components/LoadingIndicator';
-import Axios from '../../backend/Axios';
-
+//Schemas
 import addressSchema from '../../backend/schemas/addressSchema';
-
-import {API, graphqlOperation} from 'aws-amplify';
-import * as mutations from '../../graphql/mutations';
+import RegisterAddressFormSchema from '../../backend/form-validation-schemas/RegisterAddressFormSchema';
+// Backend
+import Axios from '../../backend/Axios';
 import Authenticator from '../../backend/auth/Authenticator';
+import Mutations from '../../backend/resolvers/Mutations';
+// Google map
+import MapView, {
+  PROVIDER_GOOGLE,
+  Marker,
+  Callout,
+  Polygon,
+  Circle,
+} from 'react-native-maps';
 
 export default function AddressScreen({route, navigation}) {
   const [isLoaded, setIsLoaded] = useState(true);
+  const [animal, setAnimal] = useState(route.params.animal);
   const [address, setAddress] = useState({...addressSchema});
 
-  function RegisterAddressFormSchema() {
-    return yup.object({
-      cep: yup
-        .string()
-        .required('campo requerido')
-        .min(8, 'mínimo de 8 caracteres')
-        .max(10, 'máximo de 9 caracteres')
-        .test('is-numb-1-5', 'Somente números são permitidos', val => {
-          return parseInt(val) > 0;
-        }),
-      street: yup.string().required('campo requerido'),
-      neighborhood: yup.string().required('campo requerido'),
-      city: yup.string().required('campo requerido'),
-      state: yup.string().required('campo requerido'),
-    });
-  }
+  const [region, setRegion] = useState({
+    latitude: -12.0,
+    longitude: -50.0,
+    latitudeDelta: 0.005,
+    longitudeDelta: 0.005,
+  });
 
   async function handleSubmitCep(value) {
     setIsLoaded(false);
@@ -55,20 +54,20 @@ export default function AddressScreen({route, navigation}) {
         setAddress({
           cep: responseCep.data.cep,
           city: responseCep.data.localidade,
-          latitude: `${
-            responseGeocoding.data.results[0].geometry.location.lat
-          }`,
-          longitude: `${
-            responseGeocoding.data.results[0].geometry.location.lng
-          }`,
+          latitude: responseGeocoding.data.results[0].geometry.location.lat,
+          longitude: responseGeocoding.data.results[0].geometry.location.lng,
           neighborhood: responseCep.data.bairro,
           street: responseCep.data.logradouro,
           state: responseCep.data.uf,
           addressUserId: responseUserAttb.attributes.sub,
         });
+        setRegion({
+          ...region,
+          latitude: responseGeocoding.data.results[0].geometry.location.lat,
+          longitude: responseGeocoding.data.results[0].geometry.location.lng,
+        });
       }
     } catch (error) {
-      console.log('ERROR CEP → ', error);
       Alert.alert('Erro ao buscar cep!');
     }
     setIsLoaded(true);
@@ -77,14 +76,13 @@ export default function AddressScreen({route, navigation}) {
   async function createAddress() {
     setIsLoaded(false);
     try {
-      const response = await API.graphql(
-        graphqlOperation(mutations.createAddress, {input: address}),
-      );
-      console.log('response graphql → ', response);
+      const response = await Mutations().CreateUserAddress(address);
+      setAnimal((animal.animalAddressId = response.data.createAddress.id));
+      route.params.initialize();
+      navigation.goBack();
       Alert.alert('Endereço cadastrado com sucesso!');
-    } catch (error) {
-      console.log('CATCH ERROR → ', error);
-      Alert.alert('Erro ao cadastrar endereço!');
+    } catch (e) {
+      Alert.alert('Não foi possivel cadastrar o endereço!');
     }
     setIsLoaded(true);
   }
@@ -96,12 +94,9 @@ export default function AddressScreen({route, navigation}) {
       enableReinitialize={true}
       onSubmit={values => {
         createAddress();
-        navigation.goBack();
       }}>
       {({values, handleChange, handleSubmit, errors, touched}) => (
         <SafeAreaView>
-          {console.log('ADDRESS →', address)}
-
           <ThemeProvider theme={GlobalTheme}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
               <ScrollView>
@@ -115,6 +110,7 @@ export default function AddressScreen({route, navigation}) {
                       value={values.cep}
                       errorMessage={errors.cep}
                       touched={touched.cep}
+                      divider={false}
                     />
                     <Button
                       title="BUSCAR CEP"
@@ -123,43 +119,97 @@ export default function AddressScreen({route, navigation}) {
                       }}
                       disabled={!values.cep}
                     />
-                    <FormInput
-                      title={'Rua:'}
-                      onChangeText={handleChange('street')}
-                      value={values.street}
-                      errorMessage={errors.street}
-                      touched={touched.street}
-                      divider={false}
-                    />
-                    <FormInput
-                      title={'Bairro:'}
-                      onChangeText={handleChange('neighborhood')}
-                      value={values.neighborhood}
-                      errorMessage={errors.neighborhood}
-                      touched={touched.neighborhood}
-                      divider={false}
-                    />
-                    <FormInput
-                      title={'Cidade:'}
-                      onChangeText={handleChange('city')}
-                      value={values.city}
-                      errorMessage={errors.city}
-                      touched={touched.city}
-                      divider={false}
-                    />
-                    <FormInput
-                      title={'Estado:'}
-                      onChangeText={handleChange('state')}
-                      value={values.state}
-                      errorMessage={errors.state}
-                      touched={touched.state}
-                    />
+                    {address.cep && (
+                      <View>
+                        <View
+                          style={{
+                            alignContent: 'center',
+                            width: '100%',
+                            height: 100,
+                            borderRadius: 10,
+                            backgroundColor: '#BFBFBF',
+                            marginTop: 30,
+                            marginBottom: 30,
+                          }}>
+                          <View
+                            style={{
+                              flexDirection: 'column',
+                              marginStart: 20,
+                              marginTop: 10,
+                            }}>
+                            <View
+                              style={{
+                                flexDirection: 'row',
+                              }}>
+                              <Text style={{fontWeight: 'bold'}}>Rua:</Text>
+                              <Text style={{marginStart: 5}}>
+                                {address.street}
+                              </Text>
+                            </View>
+                            <View
+                              style={{
+                                flexDirection: 'row',
+                              }}>
+                              <Text style={{fontWeight: 'bold'}}>Bairro:</Text>
+                              <Text style={{marginStart: 5}}>
+                                {address.neighborhood}
+                              </Text>
+                            </View>
+                            <View
+                              style={{
+                                flexDirection: 'row',
+                              }}>
+                              <Text style={{fontWeight: 'bold'}}>Cidade:</Text>
+                              <Text style={{marginStart: 5}}>
+                                {address.city}
+                              </Text>
+                            </View>
+                            <View
+                              style={{
+                                flexDirection: 'row',
+                              }}>
+                              <Text style={{fontWeight: 'bold'}}>Estado:</Text>
+                              <Text style={{marginStart: 5}}>
+                                {address.state}
+                              </Text>
+                            </View>
+                          </View>
+                        </View>
+                        <View
+                          style={{
+                            width: '100%',
+                            height: 200,
+                            marginBottom: 5,
+                            borderColor: '#000000',
+                            borderWidth: 1,
+                          }}>
+                          <MapView
+                            provider={PROVIDER_GOOGLE}
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                            }}
+                            region={region}>
+                            <Marker
+                              key={address.cep}
+                              coordinate={{
+                                latitude: region.latitude,
+                                longitude: region.longitude,
+                              }}
+                              title={address.street}
+                            />
+                          </MapView>
+                        </View>
+                      </View>
+                    )}
 
-                    <Button
-                      title="CADASTRAR ENDEREÇO"
-                      onPress={handleSubmit}
-                      disabled={!address.cep}
-                    />
+                    {address.cep && (
+                      <Button
+                        title="CADASTRAR ENDEREÇO"
+                        onPress={handleSubmit}
+                        disabled={!address.cep}
+                      />
+                    )}
                   </View>
                 ) : (
                   <LoadingIndicator />

@@ -106,7 +106,7 @@ const Screens = ({navigation, style}) => {
         <Stack.Screen
           name="ObservationScreen"
           component={ObservationScreen}
-          options={{title: 'Observações finais'}}
+          options={{title: 'Observações'}}
         />
       </Stack.Navigator>
     </Animated.View>

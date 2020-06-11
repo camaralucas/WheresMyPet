@@ -21,7 +21,6 @@ export default function DrawerHeader() {
 
   return (
     <View style={{width: '100%'}}>
-      {console.log('USER ATTRIBUTES → ', userAttributes)}
       <View style={{height: 200, backgroundColor: '#ffffff'}}>
         {isLoaded ? (
           <View>

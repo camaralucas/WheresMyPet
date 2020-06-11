@@ -7,11 +7,10 @@ import {
   Keyboard,
   View,
   Text,
+  Alert,
 } from 'react-native';
 import {ThemeProvider, Button} from 'react-native-elements';
 import {Formik} from 'formik';
-import * as yup from 'yup';
-import FormInput from '../../../components/FormInput';
 import ColorPicker from '../../../components/ColorPicker';
 import Checkbox from '../../../components/Checkbox';
 
@@ -25,16 +24,30 @@ export default function CollorsFormScreen({route, navigation}) {
       initialValues={animal}
       enableReinitialize={true}
       onSubmit={values => {
+        if (values.eye_left == null || values.eye_left == 'null') {
+          return Alert.alert('Selecione a cor dos olhos!');
+        }
         if (!checkedEye) {
           values.eye_right = values.eye_left;
+        } else if (values.eye_right == null || values.eye_right == 'null') {
+          return Alert.alert('Selecione a cor do olho direito!');
+        }
+
+        if (values.primary_fur == null || values.primary_fur == 'null') {
+          return Alert.alert('Selecione a cor do pelo!');
         }
         if (!checkedFur) {
           values.secundary_fur = values.primary_fur;
+        } else if (
+          values.secundary_fur == null ||
+          values.secundary_fur == 'null'
+        ) {
+          return Alert.alert('Selecione a cor secundária do pelo!');
         }
         setAnimal(values);
-        navigation.navigate('AddressScreen', {animal: values});
+        navigation.navigate('ObservationScreen', {animal: values});
       }}>
-      {({values, handleChange, handleSubmit, errors, touched}) => (
+      {({values, handleChange, handleSubmit}) => (
         <SafeAreaView>
           <ThemeProvider theme={GlobalTheme}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -51,7 +64,7 @@ export default function CollorsFormScreen({route, navigation}) {
                     }}>
                     <ColorPicker
                       title={
-                        !checkedEye ? 'Cor dos olhos:' : 'Cor do olho esquerdo'
+                        checkedEye ? 'Cor do olho esquerdo' : 'Cor dos olhos:'
                       }
                       onValueChange={handleChange('eye_left')}
                       selectedValue={values.eye_left}
