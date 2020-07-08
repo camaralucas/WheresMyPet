@@ -1,12 +1,7 @@
 import React, {useState} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {
-  DrawerItem,
-  createDrawerNavigator,
-  DrawerContentScrollView,
-} from '@react-navigation/drawer';
-import Authenticator from './backend/auth/Authenticator';
-import DrawerHeader from './components/DrawerHeader';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import ContentScrollView from './components/drawer/ContentScrollView';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Animated from 'react-native-reanimated';
 
@@ -14,14 +9,16 @@ import Animated from 'react-native-reanimated';
 import HomeScreen from './screens/HomeScreen';
 import MapScreen from './screens/MapScreen';
 import SelectSpecieScreen from './screens/register/animal/SelectSpecieScreen';
-import BreedSelectScreen from './screens/register/animal/BreedSelectScreen';
 import ImageSelectScreen from './screens/register/animal/ImageSelectScreen';
 import GeneralInfoScreen from './screens/register/animal/GeneralInfoScreen';
-import CollorsFormScreen from './screens/register/animal/CollorsFormScreen';
-import ObservationScreen from './screens/register/animal/ObservationScreen';
-
+import CollorsObsFormScreen from './screens/register/animal/CollorsObsFormScreen';
+import AbstractScreen from './screens/register/animal/AbstractScreen';
 // Commons screens
 import AddressScreen from './screens/register/AddressScreen';
+import BreedScreen from './screens/register/BreedScreen';
+import EditAnimalScreen from './screens/EditAnimalScreen';
+import ProfileScreen from './screens/ProfileScreen';
+import {View, Text} from 'react-native';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -55,6 +52,48 @@ const Screens = ({navigation, style}) => {
                 onPress={() => navigation.openDrawer()}
               />
             ),
+            headerRight: () => (
+              <View style={{flexDirection: 'row'}}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    padding: 10,
+                  }}>
+                  <Icon
+                    name="filter"
+                    size={25}
+                    color="#000000"
+                    style={{marginEnd: 10}}
+                    onPress={() => navigation.openDrawer()}
+                  />
+
+                  <View
+                    style={{
+                      width: 1,
+                      height: 50,
+                      backgroundColor: '#000',
+                      margin: 5,
+                    }}
+                  />
+                  <Icon
+                    name="list-alt"
+                    size={25}
+                    color="#000000"
+                    style={{margin: 8, paddingTop: 5}}
+                    onPress={() => navigation.openDrawer()}
+                  />
+                  <Icon
+                    name="map-marked-alt"
+                    size={25}
+                    color="#000000"
+                    style={{margin: 8}}
+                    onPress={() => navigation.openDrawer()}
+                  />
+                </View>
+              </View>
+            ),
           }}
         />
         <Stack.Screen
@@ -79,24 +118,14 @@ const Screens = ({navigation, style}) => {
           options={{title: 'Cadastrar animal perdido'}}
         />
         <Stack.Screen
-          name="BreedSelectScreen"
-          component={BreedSelectScreen}
-          options={{title: 'Selecione a raça do animal'}}
-        />
-        <Stack.Screen
           name="ImageSelectScreen"
           component={ImageSelectScreen}
           options={{title: 'Selecionar foto'}}
         />
         <Stack.Screen
-          name="CollorsFormScreen"
-          component={CollorsFormScreen}
-          options={{title: 'Selecione os campos'}}
-        />
-        <Stack.Screen
           name="GeneralInfoScreen"
           component={GeneralInfoScreen}
-          options={{title: 'Informações na coleira'}}
+          options={{title: 'Informações gerais'}}
         />
         <Stack.Screen
           name="AddressScreen"
@@ -104,38 +133,59 @@ const Screens = ({navigation, style}) => {
           options={{title: 'Cadastrar endereço'}}
         />
         <Stack.Screen
-          name="ObservationScreen"
-          component={ObservationScreen}
-          options={{title: 'Observações'}}
+          name="CollorsObsFormScreen"
+          component={CollorsObsFormScreen}
+          options={{title: 'Selecione e preencha'}}
+        />
+        <Stack.Screen
+          name="AbstractScreen"
+          component={AbstractScreen}
+          options={{title: 'Resumo das informações'}}
+        />
+        <Stack.Screen
+          name="BreedScreen"
+          component={BreedScreen}
+          options={{
+            title: 'Selecione a raça do animal',
+            // headerLeft: () => (
+            //   <Icon
+            //     name="arrow-left"
+            //     size={18}
+            //     color="#000000"
+            //     style={{marginStart: 20}}
+            //     onPress={() => navigation.navigate('EditAnimalScreen')}
+            //   />
+            // ),
+          }}
+        />
+        <Stack.Screen
+          name="EditAnimalScreen"
+          component={EditAnimalScreen}
+          options={{
+            title: 'Editar informações do animal',
+            headerLeft: () => (
+              <Icon
+                name="arrow-left"
+                size={18}
+                color="#000000"
+                style={{marginStart: 20}}
+                onPress={() =>
+                  navigation.reset({
+                    index: 0,
+                    routes: [{name: 'HomeScreen'}],
+                  })
+                }
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="ProfileScreen"
+          component={ProfileScreen}
+          options={{title: 'Editar informações de perfil'}}
         />
       </Stack.Navigator>
     </Animated.View>
-  );
-};
-
-const DrawerContent = props => {
-  return (
-    <DrawerContentScrollView {...props}>
-      <DrawerHeader />
-      <DrawerItem
-        label="Início"
-        onPress={() => props.navigation.navigate('HomeScreen')}
-        labelStyle={{marginLeft: -16, marginVertical: -10, marginBottom: -10}}
-        icon={() => <Icon name="home" size={16} />}
-      />
-      <DrawerItem
-        label="Cadastrar animal perdido"
-        onPress={() => props.navigation.navigate('SelectSpecieScreen')}
-        labelStyle={{marginLeft: -16, marginVertical: -10, marginBottom: -10}}
-        icon={() => <Icon name="paw" size={16} />}
-      />
-      <DrawerItem
-        label="Sair"
-        onPress={async () => await Authenticator().LogoutUser()}
-        labelStyle={{marginLeft: -16, marginVertical: -10, marginBottom: -10}}
-        icon={() => <Icon name="sign-out-alt" size={16} color="#ff0000" />}
-      />
-    </DrawerContentScrollView>
   );
 };
 
@@ -163,7 +213,7 @@ export default () => {
       sceneContainerStyle={{backgroundColor: '#ffcc80'}}
       drawerContent={props => {
         setProgress(props.progress);
-        return <DrawerContent {...props} />;
+        return <ContentScrollView {...props} />;
       }}>
       <Drawer.Screen name="Screens">
         {props => <Screens {...props} style={screenTheme} />}

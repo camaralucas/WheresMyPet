@@ -102,7 +102,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-wheresmypet-dev-192432-deployment",
-					"S3Key": "amplify-builds/wheresmypet6517f4ee6517f4eePostConfirmation-4e4a6f686c6736344364-build.zip"
+					"S3Key": "amplify-builds/wheresmypet6517f4ee6517f4eePostConfirmation-7342496c566f70356b6c-build.zip"
 				}
 			}
 		},

@@ -1,46 +1,14 @@
 const GlobalTheme = {
   container: {
-    backgroundColor: '#ffffff',
     height: '100%',
-    paddingBottom: 20,
-    paddingTop: 20,
-    paddingStart: 20,
-    paddingEnd: 20,
+    width: '100%',
+    flexDirection: 'column',
+    padding: '5%',
+    backgroundColor: '#ffffff',
   },
-  Button: {
-    containerStyle: {
-      marginBottom: 10,
-      marginTop: 10,
-      marginStart: 50,
-      marginEnd: 50,
-    },
-    titleStyle: {
-      color: 'black',
-    },
-    buttonStyle: {
-      backgroundColor: '#ffad33',
-    },
-  },
-  Avatar: {
-    containerStyle: {
-      marginTop: 20,
-      marginBottom: 20,
-      marginStart: 55,
-      borderWidth: 5,
-      borderColor: '#000000',
-      borderRadius: 20,
-      width: 300,
-      height: 300,
-    },
-    avatarStyle: {
-      borderRadius: 15,
-    },
-  },
-  Icon: {
-    containerStyle: {
-      flex: 1,
-      alignItems: 'center',
-    },
+  scrollViewContainer: {
+    height: '100%',
+    width: '100%',
   },
   drawerHeader: {
     marginStart: 20,
@@ -48,30 +16,62 @@ const GlobalTheme = {
     marginBottom: 10,
     fontWeight: 'bold',
   },
-  input: {
-    width: 350,
+  map: {height: '100%'},
+  divider: {
+    backgroundColor: 'grey',
+    margin: 10,
+  },
+  headerText: {fontWeight: 'bold', textAlign: 'center', marginTop: 5},
+  textInput: {
+    width: '100%',
     height: 40,
     marginTop: 5,
-    marginStart: 15,
     borderWidth: 1,
     borderColor: '#ddd',
     padding: 10,
     fontSize: 18,
     borderRadius: 4,
   },
-  divider: {
-    backgroundColor: 'grey',
-    marginTop: 10,
-  },
-  map: {height: '100%'},
-  text: {marginStart: 15, marginTop: 5},
-  headerText: {fontWeight: 'bold', textAlign: 'center', marginTop: 15},
-  errorText: {
-    color: 'crimson',
-    fontWeight: 'bold',
+  textInputError: {
     textAlign: 'center',
-    marginBottom: 10,
-    marginTop: 10,
+    fontWeight: 'bold',
+    color: 'crimson',
+    margin: 10,
+  },
+  Button: {
+    containerStyle: {
+      margin: 10,
+    },
+    titleStyle: {
+      color: 'black',
+      paddingStart: 10,
+      paddingEnd: 10,
+    },
+    buttonStyle: {
+      backgroundColor: '#ffad33',
+    },
+  },
+  Avatar: {
+    containerStyle: {
+      width: '100%',
+      height: 350,
+      borderWidth: 1,
+      borderColor: '#000000',
+    },
+    avatarStyle: {
+      width: '100%',
+      height: '100%',
+    },
+  },
+  Icon: {
+    containerStyle: {
+      alignItems: 'center',
+      opacity: 1,
+    },
+    iconStyle: {
+      marginTop: 10,
+      marginBottom: 10,
+    },
   },
 };
 

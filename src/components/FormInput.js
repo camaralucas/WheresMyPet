@@ -12,28 +12,23 @@ export default function FormInput({
   errorMessage,
   touched,
   multiline = false,
+  keyboardType = 'default',
+  style = GlobalTheme.textInput,
 }) {
   return (
     <View>
-      <View
-        style={{
-          flex: 1,
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}>
-        {header && <Text style={GlobalTheme.headerText}>{header}</Text>}
-      </View>
-      <Text style={GlobalTheme.text}>{title} </Text>
+      {header && <Text style={GlobalTheme.headerText}>{header}</Text>}
+      <Text>{title} </Text>
       <TextInput
         multiline={multiline}
-        style={GlobalTheme.input}
+        style={style}
         placeholder="Digite aqui..."
         onChangeText={onChangeText}
         value={value}
+        keyboardType={keyboardType}
       />
       {touched && errorMessage && (
-        <Text style={GlobalTheme.errorText}>{errorMessage}</Text>
+        <Text style={GlobalTheme.textInputError}>{errorMessage}</Text>
       )}
       {divider && <Divider style={GlobalTheme.divider} />}
     </View>

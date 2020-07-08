@@ -1,6 +1,224 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
+//Customs
+export const getUserAddresses = /* GraphQL */ `
+  query GetUser($id: ID!) {
+    getUser(id: $id) {
+      addresses {
+        items {
+          id
+          city
+          latitude
+          longitude
+          neighborhood
+          street
+          state
+        }
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
 
+export const getUserAnimalsIds = /* GraphQL */ `
+  query GetUser($id: ID!) {
+    getUser(id: $id) {
+      animals {
+        items {
+          id
+        }
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+
+export const getAddressInfo = /* GraphQL */ `
+  query GetAddress($id: ID!) {
+    getAddress(id: $id) {
+      id
+      cep
+      city
+      latitude
+      longitude
+      neighborhood
+      street
+      state
+    }
+  }
+`;
+
+export const listAllAnimals = /* GraphQL */ `
+  query ListAnimals(
+    $filter: ModelAnimalFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listAnimals(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        address {
+          cep
+          city
+          latitude
+          longitude
+          neighborhood
+          street
+          state
+        }
+        user {
+          email
+          given_name
+          phone_number
+        }
+        breed
+        collarColor
+        collarText
+        heterochromia
+        name
+        observation
+        photoKey
+        primary_fur
+        secundary_fur
+        specie
+        status
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+// Defaults
+export const syncUsers = /* GraphQL */ `
+  query SyncUsers(
+    $filter: ModelUserFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncUsers(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        addresses {
+          nextToken
+          startedAt
+        }
+        animals {
+          nextToken
+          startedAt
+        }
+        email
+        family_name
+        given_name
+        phone_number
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const getUser = /* GraphQL */ `
+  query GetUser($id: ID!) {
+    getUser(id: $id) {
+      id
+      addresses {
+        items {
+          id
+          cep
+          city
+          latitude
+          longitude
+          neighborhood
+          street
+          state
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+      animals {
+        items {
+          id
+          breed
+          collarColor
+          collarText
+          heterochromia
+          name
+          observation
+          photoKey
+          primary_fur
+          secundary_fur
+          specie
+          status
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+      email
+      family_name
+      given_name
+      phone_number
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listUsers = /* GraphQL */ `
+  query ListUsers(
+    $filter: ModelUserFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        addresses {
+          nextToken
+          startedAt
+        }
+        animals {
+          nextToken
+          startedAt
+        }
+        email
+        family_name
+        given_name
+        phone_number
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
 export const syncAddresses = /* GraphQL */ `
   query SyncAddresses(
     $filter: ModelAddressFilterInput
@@ -167,18 +385,16 @@ export const syncAnimals = /* GraphQL */ `
           updatedAt
         }
         breed
-        eye_right
-        eye_left
+        collarColor
+        collarText
+        heterochromia
         name
-        number
         observation
         photoKey
-        photoURL
         primary_fur
         secundary_fur
         specie
         status
-        text
         _version
         _deleted
         _lastChangedAt
@@ -242,18 +458,16 @@ export const getAnimal = /* GraphQL */ `
         updatedAt
       }
       breed
-      eye_right
-      eye_left
+      collarColor
+      collarText
+      heterochromia
       name
-      number
       observation
       photoKey
-      photoURL
       primary_fur
       secundary_fur
       specie
       status
-      text
       _version
       _deleted
       _lastChangedAt
@@ -299,18 +513,16 @@ export const listAnimals = /* GraphQL */ `
           updatedAt
         }
         breed
-        eye_right
-        eye_left
+        collarColor
+        collarText
+        heterochromia
         name
-        number
         observation
         photoKey
-        photoURL
         primary_fur
         secundary_fur
         specie
         status
-        text
         _version
         _deleted
         _lastChangedAt
@@ -336,14 +548,14 @@ export const syncData = /* GraphQL */ `
       lastSync: $lastSync
     ) {
       items {
-        foundCats
-        foundDogs
+        id
+        cat
+        dog
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        owner
       }
       nextToken
       startedAt
@@ -353,14 +565,14 @@ export const syncData = /* GraphQL */ `
 export const getData = /* GraphQL */ `
   query GetData($id: ID!) {
     getData(id: $id) {
-      foundCats
-      foundDogs
+      id
+      cat
+      dog
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -372,8 +584,37 @@ export const listDatas = /* GraphQL */ `
   ) {
     listDatas(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
-        foundCats
-        foundDogs
+        id
+        cat
+        dog
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncStatistics = /* GraphQL */ `
+  query SyncStatistics(
+    $filter: ModelStatisticsFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncStatistics(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        dogs
+        cats
         _version
         _deleted
         _lastChangedAt
@@ -386,130 +627,38 @@ export const listDatas = /* GraphQL */ `
     }
   }
 `;
-export const syncUsers = /* GraphQL */ `
-  query SyncUsers(
-    $filter: ModelUserFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncUsers(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        addresses {
-          nextToken
-          startedAt
-        }
-        animals {
-          nextToken
-          startedAt
-        }
-        email
-        family_name
-        given_name
-        phone_number
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const getUser = /* GraphQL */ `
-  query GetUser($id: ID!) {
-    getUser(id: $id) {
+export const getStatistics = /* GraphQL */ `
+  query GetStatistics($id: ID!) {
+    getStatistics(id: $id) {
       id
-      addresses {
-        items {
-          id
-          cep
-          city
-          latitude
-          longitude
-          neighborhood
-          street
-          state
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        nextToken
-        startedAt
-      }
-      animals {
-        items {
-          id
-          breed
-          eye_right
-          eye_left
-          name
-          number
-          observation
-          photoKey
-          photoURL
-          primary_fur
-          secundary_fur
-          specie
-          status
-          text
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        nextToken
-        startedAt
-      }
-      email
-      family_name
-      given_name
-      phone_number
+      dogs
+      cats
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      owner
     }
   }
 `;
-export const listUsers = /* GraphQL */ `
-  query ListUsers(
-    $filter: ModelUserFilterInput
+export const listStatisticss = /* GraphQL */ `
+  query ListStatisticss(
+    $filter: ModelStatisticsFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listStatisticss(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        addresses {
-          nextToken
-          startedAt
-        }
-        animals {
-          nextToken
-          startedAt
-        }
-        email
-        family_name
-        given_name
-        phone_number
+        dogs
+        cats
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        owner
       }
       nextToken
       startedAt

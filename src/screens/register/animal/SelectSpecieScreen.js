@@ -3,6 +3,7 @@ import {View} from 'react-native';
 import {ThemeProvider, Button, Icon} from 'react-native-elements';
 import GlobalTheme from '../../../styles/GlobalTheme';
 import animalSchema from '../../../backend/schemas/animalSchema';
+import Authenticator from '../../../backend/auth/Authenticator';
 
 export default function SelectSpecieScreen({route, navigation}) {
   const [animal, setAnimal] = useState({
@@ -10,14 +11,17 @@ export default function SelectSpecieScreen({route, navigation}) {
   });
 
   useEffect(() => {
-    if (route.params?.animal) {
-      setAnimal(route.params.animal);
-    }
-  }, [route.params?.animal]);
+    initiate();
+  }, []);
+
+  async function initiate() {
+    const {username} = await Authenticator().GetUserSub();
+    setAnimal({...animal, animalUserId: username});
+  }
 
   return (
     <ThemeProvider theme={GlobalTheme}>
-      <View style={GlobalTheme.container}>
+      <View style={{...GlobalTheme.container, justifyContent: 'space-between'}}>
         <Icon
           type="font-awesome-5"
           name="cat"
@@ -27,9 +31,7 @@ export default function SelectSpecieScreen({route, navigation}) {
             animal.specie == 'cat'
               ? {
                   ...GlobalTheme.Icon.containerStyle,
-                  borderWidth: 2,
-                  borderRadius: 20,
-                  borderColor: '#000000',
+                  ...borderRadiusStyle,
                 }
               : {
                   ...GlobalTheme.Icon.containerStyle,
@@ -46,9 +48,7 @@ export default function SelectSpecieScreen({route, navigation}) {
             animal.specie == 'dog'
               ? {
                   ...GlobalTheme.Icon.containerStyle,
-                  borderWidth: 2,
-                  borderRadius: 20,
-                  borderColor: '#000000',
+                  ...borderRadiusStyle,
                 }
               : {
                   ...GlobalTheme.Icon.containerStyle,
@@ -56,9 +56,8 @@ export default function SelectSpecieScreen({route, navigation}) {
                 }
           }
         />
-
         <Button
-          title="PRÓXIMO"
+          title={'PRÓXIMO'}
           onPress={() => {
             navigation.navigate('ImageSelectScreen', {animal});
           }}
@@ -68,3 +67,10 @@ export default function SelectSpecieScreen({route, navigation}) {
     </ThemeProvider>
   );
 }
+
+const borderRadiusStyle = {
+  width: '100%',
+  borderWidth: 2,
+  borderRadius: 20,
+  borderColor: '#000000',
+};

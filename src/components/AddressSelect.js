@@ -5,18 +5,16 @@ import {View, Text} from 'react-native';
 import GlobalTheme from '../styles/GlobalTheme';
 
 export default function AddressSelect({
-  title,
   addresses,
   selectedValue,
   onValueChange,
 }) {
   return (
     <View>
-      <Text style={GlobalTheme.headerText}>{title}</Text>
       <View>
         <Picker
           selectedValue={selectedValue}
-          style={{height: 50, width: '100%'}}
+          style={{height: 50}}
           onValueChange={onValueChange}>
           <Picker.Item label={'Selecione'} value={'null'} />
           {addresses && addresses.length > 0 ? (

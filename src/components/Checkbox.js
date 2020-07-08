@@ -1,13 +1,10 @@
 import React from 'react';
-import {View} from 'react-native';
-import {CheckBox, Divider} from 'react-native-elements';
-import GlobalTheme from '../styles/GlobalTheme';
+import {CheckBox, ThemeProvider} from 'react-native-elements';
 
-export default function Checkbox({title, checked, onPress, divider = true}) {
+export default function Checkbox({title, checked, onPress}) {
   return (
-    <View>
+    <ThemeProvider>
       <CheckBox title={title} checked={checked} onPress={onPress} />
-      {divider && <Divider style={GlobalTheme.divider} />}
-    </View>
+    </ThemeProvider>
   );
 }

@@ -1,11 +1,12 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateData = /* GraphQL */ `
-  subscription OnCreateData($owner: String!) {
-    onCreateData(owner: $owner) {
-      foundCats
-      foundDogs
+export const onCreateStatistics = /* GraphQL */ `
+  subscription OnCreateStatistics($owner: String!) {
+    onCreateStatistics(owner: $owner) {
+      id
+      dogs
+      cats
       _version
       _deleted
       _lastChangedAt
@@ -15,11 +16,12 @@ export const onCreateData = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateData = /* GraphQL */ `
-  subscription OnUpdateData($owner: String!) {
-    onUpdateData(owner: $owner) {
-      foundCats
-      foundDogs
+export const onUpdateStatistics = /* GraphQL */ `
+  subscription OnUpdateStatistics($owner: String!) {
+    onUpdateStatistics(owner: $owner) {
+      id
+      dogs
+      cats
       _version
       _deleted
       _lastChangedAt
@@ -29,11 +31,12 @@ export const onUpdateData = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteData = /* GraphQL */ `
-  subscription OnDeleteData($owner: String!) {
-    onDeleteData(owner: $owner) {
-      foundCats
-      foundDogs
+export const onDeleteStatistics = /* GraphQL */ `
+  subscription OnDeleteStatistics($owner: String!) {
+    onDeleteStatistics(owner: $owner) {
+      id
+      dogs
+      cats
       _version
       _deleted
       _lastChangedAt

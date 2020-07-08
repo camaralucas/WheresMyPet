@@ -1,54 +1,64 @@
-import React, {useState, useEffect} from 'react';
-import {SafeAreaView, Alert} from 'react-native';
+import React, {useState} from 'react';
+import {Alert, View} from 'react-native';
 import GlobalTheme from '../../../styles/GlobalTheme';
 import {ThemeProvider, Button, Avatar} from 'react-native-elements';
-import imagePicker from '../../../backend/image-handlers/imagePicker';
+import PickerImage from '../../../backend/image-handlers/PickerImage';
 
 export default function ImageSelectScreen({route, navigation}) {
   const [animal, setAnimal] = useState(route.params.animal);
+  const [image, setImage] = useState();
+  const defaultImage = require('../../../assets/dog-and-cat.png');
 
-  function imagePickerCallback(uri) {
+  function PickerImageCallback(uri) {
     if (uri) {
-      setAnimal({...animal, photoURI: uri});
+      setImage(uri);
     } else {
       Alert.alert('', 'Foto não selecionada');
     }
   }
 
   return (
-    <SafeAreaView>
+    <View style={GlobalTheme.container}>
       <ThemeProvider theme={GlobalTheme}>
-        <Avatar
-          source={
-            !animal.photoURI
-              ? require('../../../assets/dog-and-cat.png')
-              : {uri: animal.photoURI}
-          }
-          onPress={() =>
-            imagePicker(response => imagePickerCallback(response.uri))
-          }
-        />
-        <Button
-          title="SELECIONAR FOTO"
-          onPress={() =>
-            imagePicker(response => imagePickerCallback(response.uri))
-          }
-        />
-        <Button
-          title="APAGAR FOTO"
-          onPress={() => setAnimal({...animal, photoURI: null})}
-          disabled={!animal.photoURI}
-        />
+        <View style={{alignItems: 'center', justifyContent: 'center'}}>
+          <Avatar
+            source={!image ? defaultImage : {uri: image}}
+            onPress={() =>
+              PickerImage(response => PickerImageCallback(response.uri))
+            }
+            rounded
+            containerStyle={{
+              width: '100%',
+              height: '80%',
+              borderWidth: 1,
+              borderColor: '#000000',
+            }}
+          />
+        </View>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <Button
+            title="SELECIONAR FOTO"
+            onPress={() =>
+              PickerImage(response => PickerImageCallback(response.uri))
+            }
+          />
+          <Button
+            title="APAGAR FOTO"
+            onPress={() => setAnimal({...animal, photo: null})}
+            disabled={!image}
+          />
+        </View>
         <Button
           title="PRÓXIMO"
           onPress={() => {
-            navigation.navigate('GeneralInfoScreen', {animal});
+            navigation.navigate('GeneralInfoScreen', {
+              animal: animal,
+              image: image,
+            });
           }}
-          disabled={!animal.photoURI}
+          disabled={!image}
         />
       </ThemeProvider>
-    </SafeAreaView>
+    </View>
   );
 }
-
-// <UploadImageButton navigation={navigation} animal={animal} title={"ENVIAR IMAGEM"} disabled={!animal.photoURI} />
