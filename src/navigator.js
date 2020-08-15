@@ -7,7 +7,6 @@ import Animated from 'react-native-reanimated';
 
 // Register animal screens
 import HomeScreen from './screens/HomeScreen';
-import MapScreen from './screens/MapScreen';
 import SelectSpecieScreen from './screens/register/animal/SelectSpecieScreen';
 import ImageSelectScreen from './screens/register/animal/ImageSelectScreen';
 import GeneralInfoScreen from './screens/register/animal/GeneralInfoScreen';
@@ -43,64 +42,6 @@ const Screens = ({navigation, style}) => {
           component={HomeScreen}
           options={{
             title: 'Início',
-            headerLeft: () => (
-              <Icon
-                name="bars"
-                size={18}
-                color="#000000"
-                style={{marginStart: 20}}
-                onPress={() => navigation.openDrawer()}
-              />
-            ),
-            headerRight: () => (
-              <View style={{flexDirection: 'row'}}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    padding: 10,
-                  }}>
-                  <Icon
-                    name="filter"
-                    size={25}
-                    color="#000000"
-                    style={{marginEnd: 10}}
-                    onPress={() => navigation.openDrawer()}
-                  />
-
-                  <View
-                    style={{
-                      width: 1,
-                      height: 50,
-                      backgroundColor: '#000',
-                      margin: 5,
-                    }}
-                  />
-                  <Icon
-                    name="list-alt"
-                    size={25}
-                    color="#000000"
-                    style={{margin: 8, paddingTop: 5}}
-                    onPress={() => navigation.openDrawer()}
-                  />
-                  <Icon
-                    name="map-marked-alt"
-                    size={25}
-                    color="#000000"
-                    style={{margin: 8}}
-                    onPress={() => navigation.openDrawer()}
-                  />
-                </View>
-              </View>
-            ),
-          }}
-        />
-        <Stack.Screen
-          name="MapScreen"
-          component={MapScreen}
-          options={{
-            title: 'Mapa',
             headerLeft: () => (
               <Icon
                 name="bars"
@@ -147,15 +88,6 @@ const Screens = ({navigation, style}) => {
           component={BreedScreen}
           options={{
             title: 'Selecione a raça do animal',
-            // headerLeft: () => (
-            //   <Icon
-            //     name="arrow-left"
-            //     size={18}
-            //     color="#000000"
-            //     style={{marginStart: 20}}
-            //     onPress={() => navigation.navigate('EditAnimalScreen')}
-            //   />
-            // ),
           }}
         />
         <Stack.Screen

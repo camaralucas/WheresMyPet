@@ -1,7 +1,7 @@
 {
-    "bucketName": "wheresmypet9f856ad94eb34c7da8e58ad95eeacc37",
-    "authPolicyName": "s3_amplify_1f7ef48b",
-    "unauthPolicyName": "s3_amplify_1f7ef48b",
+    "bucketName": "wheresmypet53dadc1f2d8b4073a540859cb7849223",
+    "authPolicyName": "s3_amplify_8bc70d2b",
+    "unauthPolicyName": "s3_amplify_8bc70d2b",
     "authRoleName": {
         "Ref": "AuthRoleName"
     },

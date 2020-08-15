@@ -1,4 +1,4 @@
-import Amplify, {label} from 'aws-amplify';
+import Amplify from 'aws-amplify';
 import {AmazonAIPredictionsProvider} from '@aws-amplify/predictions';
 import Predictions from '@aws-amplify/predictions';
 import DogBreeds from '../../backend/breeds/DogBreeds';

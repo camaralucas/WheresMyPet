@@ -1,5 +1,6 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
+
 //Customs
 export const getUserAddresses = /* GraphQL */ `
   query GetUser($id: ID!) {
@@ -27,6 +28,17 @@ export const getUserAnimalsIds = /* GraphQL */ `
       animals {
         items {
           id
+          breed
+          collarColor
+          collarText
+          heterochromia
+          name
+          observation
+          photoKey
+          primary_fur
+          secundary_fur
+          specie
+          status
         }
         nextToken
         startedAt
@@ -60,6 +72,7 @@ export const listAllAnimals = /* GraphQL */ `
       items {
         id
         address {
+          id
           cep
           city
           latitude
@@ -69,7 +82,9 @@ export const listAllAnimals = /* GraphQL */ `
           state
         }
         user {
+          id
           email
+          family_name
           given_name
           phone_number
         }
@@ -90,6 +105,7 @@ export const listAllAnimals = /* GraphQL */ `
     }
   }
 `;
+
 // Defaults
 export const syncUsers = /* GraphQL */ `
   query SyncUsers(

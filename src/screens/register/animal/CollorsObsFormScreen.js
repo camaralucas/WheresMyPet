@@ -64,6 +64,7 @@ export default function CollorsObsFormScreen({route, navigation}) {
               values.photoKey = key;
               setAnimal(values);
             } catch (e) {
+              console.log('error → ', e);
               Alert.alert('Erro ao enviar imagem.');
             }
 

@@ -1,6 +1,6 @@
 projects:
   wheresmypet:
-    schemaPath: src/graphql/schema.json
+    schemaPath: amplify/backend/api/wheresmypet/build/schema.graphql
     includes:
       - src/graphql/**/*.js
     excludes:
