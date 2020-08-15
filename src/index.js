@@ -1,13 +1,13 @@
-import React, {Component} from 'react';
-import AppNavigator from './navigator';
-
-
-// Amplify
+import 'react-native-gesture-handler';
+import React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import Localei18n from './config/Localei18n';
+import DrawerNavigator from './navigator';
+import {withAuthenticator} from 'aws-amplify-react-native';
+import SignUpConfig from './config/SignUpConfig';
+import amplifyTheme from './styles/amplifyTheme';
 import Amplify from 'aws-amplify';
 import awsconfig from '../aws-exports';
-import {withAuthenticator} from 'aws-amplify-react-native';
-import amplifySignUpConfig from './config/amplify/SignUp';
-import amplifyCustomTheme from './styles/amplify';
 
 Amplify.configure({
   ...awsconfig,
@@ -16,17 +16,23 @@ Amplify.configure({
   },
 });
 
-class App extends Component {
-  render() {
-    return <AppNavigator />;
-  }
+<Localei18n />; // Language
+
+function App() {
+  return (
+    <NavigationContainer>
+      <DrawerNavigator />
+    </NavigationContainer>
+  );
 }
 
-export default withAuthenticator(App, { 
-  includeGreetings: false,
-  signUpConfig: amplifySignUpConfig,
-}, 
+export default withAuthenticator(
+  App,
+  {
+    includeGreetings: false,
+    signUpConfig: SignUpConfig,
+  },
   undefined, // placeholder for authenticatorComponents
   undefined, // placeholder for federated
-  amplifyCustomTheme,
-)
+  amplifyTheme,
+);

@@ -1,0 +1,85 @@
+type User
+  @model(subscriptions: null)
+  @auth(
+    rules: [
+      {allow: owner}
+      {allow: groups, groups: ["users"], operations: [read]}
+    ]
+  ) {
+  id: ID!
+  addresses: [Address] @connection(name: "UserAddresses")
+  animals: [Animal] @connection(name: "UserAnimals")
+  email: String!
+  family_name: String!
+  given_name: String!
+  phone_number: String
+}
+
+type Address
+  @model(subscriptions: null)
+  @auth(
+    rules: [
+      {allow: owner}
+      {allow: groups, groups: ["users"], operations: [read]}
+    ]
+  ) {
+  id: ID!
+  cep: String!
+  city: String!
+  latitude: String!
+  longitude: String!
+  neighborhood: String!
+  street: String!
+  state: String!
+  user: User! @connection(name: "UserAddresses")
+}
+
+type Animal
+  @model(subscriptions: null)
+  @auth(
+    rules: [
+      {allow: owner}
+      {allow: groups, groups: ["users"], operations: [read]}
+    ]
+  ) {
+  id: ID!
+  address: Address! @connection
+  user: User! @connection(name: "UserAnimals")
+  breed: String
+  collarColor: String
+  collarText: String
+  heterochromia: Int!
+  name: String!
+  observation: String
+  photoKey: String!
+  primary_fur: String!
+  secundary_fur: String!
+  specie: String!
+  status: Int!
+}
+
+type Data
+  @model(subscriptions: null)
+  @auth(
+    rules: [
+      {allow: owner}
+      {allow: groups, groups: ["users"], operations: [read]}
+    ]
+  ) {
+  id: String!
+  cat: Int
+  dog: Int
+}
+
+type Statistics
+  @model
+  @auth(
+    rules: [
+      {allow: owner}
+      {allow: groups, groups: ["users"], operations: [read]}
+    ]
+  ) {
+  id: String!
+  dogs: Int
+  cats: Int
+}
