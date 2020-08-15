@@ -14,7 +14,6 @@ export default async function UploadPhoto(photo, temporary) {
       : `${username}-${timestamp}.jpeg`;
 
     const imageInfo = await Storage.put(key, blob, {
-      acl: 'public-read',
       contentType: 'image/jpeg',
     });
 

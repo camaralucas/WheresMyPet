@@ -1,20 +1,14 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, Text, Image, Alert, Platform} from 'react-native';
+import {StyleSheet, Text, Alert, Platform, View} from 'react-native';
+import {Image} from 'react-native-elements';
 
-import MapView, {
-  PROVIDER_GOOGLE,
-  Marker,
-  Callout,
-  Polygon,
-  Circle,
-} from 'react-native-maps';
+import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import {request, PERMISSIONS} from 'react-native-permissions';
+import MarkerView from '../components/MarkerView';
 
-export default function MapScreen({route, navigation}) {
-  useEffect(() => {
-    requestLocationPermission();
-  }, []);
+export default function AnimalMapView({route, navigation, animals}) {
+  const [listAnimals, setListAnimals] = useState(animals);
 
   const [region, setRegion] = useState({
     latitude: -12.0,
@@ -23,33 +17,21 @@ export default function MapScreen({route, navigation}) {
     longitudeDelta: 20,
   });
 
-  const [coordinates, setCoordinates] = useState([
-    {
-      name: '1',
-      latitude: -22.898901,
-      longitude: -47.065086,
-    },
-    {
-      name: '2',
-      latitude: -22.898901,
-      longitude: -47.045086,
-    },
-    {
-      name: '3',
-      latitude: -22.878901,
-      longitude: -47.035086,
-    },
-    {
-      name: '4',
-      latitude: -22.858901,
-      longitude: -47.045086,
-    },
-    {
-      name: '5',
-      latitude: -22.878901,
-      longitude: -47.06086,
-    },
-  ]);
+  useEffect(() => {
+    requestLocationPermission();
+  }, []);
+
+  async function addressHandler(address) {
+    try {
+      setRegion({
+        ...region,
+        latitude: parseFloat(route.params.animal.address.latitude),
+        longitude: parseFloat(route.params.animal.address.longitude),
+      });
+    } catch (e) {
+      return Alert.alert('ERRO', 'Não foi possível obter dados do endereço');
+    }
+  }
 
   function showWelcomeMessage() {
     Alert.alert('Welcome to san francisco', 'The food is amazing', [
@@ -59,16 +41,9 @@ export default function MapScreen({route, navigation}) {
   }
 
   async function requestLocationPermission() {
-    if (Platform.OS === 'ios') {
-      const response = await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
-      if (response === 'granted') {
-        locateCurrentPosition();
-      }
-    } else {
-      const response = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
-      if (response === 'granted') {
-        locateCurrentPosition();
-      }
+    const response = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
+    if (response === 'granted') {
+      locateCurrentPosition();
     }
   }
 
@@ -92,16 +67,16 @@ export default function MapScreen({route, navigation}) {
       provider={PROVIDER_GOOGLE}
       ref={map => (_map = map)}
       showsUserLocation={true}
-      style={styles.map}
+      style={{height: '100%', width: '100%'}}
       initialRegion={region}
       region={region}
-    />
+      showsMyLocationButton={true}>
+      {listAnimals.map(animal => (
+        <MarkerView key={animal.id} animal={animal} />
+      ))}
+    </MapView>
   );
 }
-
-const styles = StyleSheet.create({
-  map: {height: '100%'},
-});
 
 {
   /* <Circle

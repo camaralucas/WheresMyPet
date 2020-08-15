@@ -22,27 +22,30 @@ function ContentScrollView(props) {
     try {
       const {attributes} = await Authenticator().GetUserSub();
       const {data} = await Queries().GetUserAnimalsIds(attributes.sub);
-      let animals = data.getUser.animals.items;
 
-      let idList = [];
+      const animals = data.getUser.animals.items;
 
-      animals.map(async animal => {
-        idList.push({id: {eq: animal.id}});
-      });
+      if (animals.length > 0) {
+        let idList = [];
 
-      let filter = {
-        or: idList,
-      };
+        animals.map(async animal => {
+          idList.push({id: {eq: animal.id}});
+        });
 
-      const response = await Queries().ListAllAnimals(filter);
-      let listUserAnimals = response.data.listAnimals.items;
+        let filter = {
+          or: idList,
+        };
 
-      listUserAnimals.map(async animal => {
-        animal.image = `https://wheresmypet9f856ad94eb34c7da8e58ad95eeacc37192432-dev.s3.amazonaws.com/public/${
-          animal.photoKey
-        }`;
-      });
-      setUserAnimals(listUserAnimals);
+        const response = await Queries().ListAllAnimals(filter);
+        let listUserAnimals = response.data.listAnimals.items;
+
+        listUserAnimals.map(async animal => {
+          animal.image = `https://wheresmypet53dadc1f2d8b4073a540859cb7849223192432-dev.s3.amazonaws.com/public/${
+            animal.photoKey
+          }`;
+        });
+        setUserAnimals(listUserAnimals);
+      }
     } catch (e) {
       Alert.alert('Não foi possível buscar os dados do usuário');
     }
